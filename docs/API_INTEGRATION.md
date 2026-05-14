@@ -7,7 +7,33 @@
 
 ## Overview
 
-TradeWinds uses real-world data to power its economy, weather, and geography. This document describes all data sources, their APIs, update frequencies, and integration strategies.
+TradeWinds uses real-world data as a **calibration layer and narrative flavour**, not as direct gameplay input. This document describes all data sources, their APIs, update frequencies, and integration strategies.
+
+### Critical Design Decision: Real Data vs. Game Data
+
+**THE PROBLEM:** If real-world commodity prices directly drive game prices, a saved game from March 2026 resumed in May 2026 will see Brent Crude jump $20 — bankrupting the player through no fault of their own. Real-world wars, pandemics, or market crashes should not destroy someone's game session.
+
+**THE SOLUTION (Claude AI recommendation — adopted):**
+
+| Layer | Source | Role | Persistence |
+|-------|--------|------|-------------|
+| **Game Economy** | Local supply-demand simulation | Drives all prices, trade, profit | Saved with game, deterministic |
+| **Calibration Signal** | Real-world data snapshots | Gently nudges simulation toward reality | Applied gradually, player-controlled rate |
+| **News & Narrative** | Real-world headlines/events | Creates immersive flavour, sets expectations | Read-only, no mechanical impact |
+
+**Principle:** Real data informs the simulation. The simulation creates gameplay.
+
+**For players:**
+- "Oil prices are trending up worldwide" → in-game news headline
+- Actual oil price in your game → determined by port inventories, production, consumption, AI trading
+- Real data gently nudges the simulation over game-weeks (5% convergence), never dictates
+
+**For saved games:**
+- Game state includes the simulation's full internal state (inventories, production, demand curves)
+- Resuming a game uses the saved state, not current real prices
+- Player can choose: "Keep using historical data from my save date" or "Gradually update to current trends"
+
+---
 
 ---
 
@@ -357,6 +383,44 @@ RATE_LIMITS = {
     "world_bank": 100,           # per minute
 }
 ```
+
+### 8.2 Data Sources — Final Recommendations (Revised)
+
+After evaluating cost, licensing, and gameplay impact, here are the **viable data sources** for TradeWinds:
+
+#### Tier 1: Always Included (Free, Unrestricted, Sufficient)
+
+| Source | Data | Role |
+|--------|------|------|
+| **Open-Meteo** | Weather, marine forecasts | Storm generation, routing risk |
+| **World Bank** | Commodity prices | Calibration signal (snapshot, not live) |
+| **NOAA** | Marine forecasts, storm tracks | North American weather, public domain |
+| **Natural Earth** | Geography, ports, cities | World map base layer |
+| **GEBCO** | Ocean depth | Route planning, shallow water |
+| **World Port Index** | Port locations, facilities | Core port database |
+| **UNCTAD** | Trade flows, port connectivity | Port importance, route viability |
+| **IMO GISIS** | Ship registry | Ship specifications |
+| **CLIWOC** | Historical weather logs | Age of Sail weather distributions |
+| **NSIDC** | Sea ice extent | Ice routing, seasonal passages |
+
+#### Tier 2: Included with Caution (Rate Limits, Restrictions)
+
+| Source | Data | Role | Risk |
+|--------|------|------|------|
+| **Trading Economics** | Real-time commodity prices | Calibration overlay | 100 req/day limit. Re-evaluate for commercial. |
+| **IMF** | Commodity price indices | Long-term trends | Free but slow updates (monthly) |
+
+#### Tier 3: Not Included (Too Expensive or Restricted)
+
+| Source | Data | Why Excluded |
+|--------|------|-------------|
+| **Baltic Exchange** | Freight indices | $10k+/year |
+| **Lloyd's List** | Port throughput, congestion | Enterprise-only pricing |
+| **Clarksons** | Ship valuations | Enterprise-only pricing |
+| **VesselValue** | Ship pricing | Paid, no free tier |
+| **MarineTraffic** | Real-time ship positions | ToS prohibits commercial use |
+| **Copernicus Marine** | Ocean currents | Commercial license required |
+| **ECMWF** | Global weather | Academic/research only |
 
 ### 8.3 Fallback Strategy
 
