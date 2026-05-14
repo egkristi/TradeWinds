@@ -212,28 +212,84 @@ private:
 };
 ```
 
-### 3.3 Market Simulation
+### 3.3 Market Simulation — Local Supply-Demand with Real-World Calibration
+
+**Core principle:** Real-world data is a *calibration signal* and *flavour overlay*, not the playable economy. The actual economy is a local supply-demand simulation at each port, with ships carrying arbitrage between them.
+
+**Reference games:** Capitalism Lab, Offworld Trading Company — these simulate market depth and chain dynamics, not price lists.
 
 ```cpp
-class UMarket : public UObject {
+// MARKET ARCHITECTURE
+// 
+// Real-world data → Calibration layer → Local simulation → Gameplay prices
+//      ↑                    ↓                ↓
+//   World Bank        Drift/overlay      Supply-demand
+//   Open-Meteo        News tickers       Production chains
+//   Baltic Exchange   Long-term trends   Inventory levels
+
+UCLASS()
+class UMarketSimulation : public UObject {
 public:
-    // Price calculation
-    float CalculatePrice(FString CommodityId, FString PortId);
+    // Each port runs its own local economy
+    UPROPERTY()
+    TMap<FString, ULocalEconomy*> PortEconomies;
     
-    // Factors affecting price
+    // Real-world data used for calibration, not direct pricing
     UPROPERTY()
-    float BasePrice;           // From real-world index
-    UPROPERTY()
-    float SupplyDemandModifier; // Local port inventory vs demand
-    UPROPERTY()
-    float SeasonalModifier;     // Harvest times, heating season
-    UPROPERTY()
-    float EventModifier;        // War, embargo, canal closure
-    UPROPERTY()
-    float PlayerImpact;         // Large trades move markets
+    URealWorldDataLayer* CalibrationLayer;
     
-    // Formula: Price = Base * (1 + SupplyDemand + Seasonal + Event + Player)
+    // Price calculation: LOCAL simulation, not global formula
+    float GetLocalPrice(FString CommodityId, FString PortId);
+    
+    // Arbitrage detection: where are the profitable routes?
+    TArray<FArbitrageOpportunity> FindArbitrageOpportunities(
+        FString CommodityId, 
+        float MaxDistance,
+        FShipClass Ship
+    );
 };
+
+// Each port is an independent agent
+UCLASS()
+class ULocalEconomy : public UObject {
+public:
+    UPROPERTY()
+    FString PortId;
+    
+    // PRODUCTION (supply side)
+    UPROPERTY()
+    TMap<FString, FProductionFacility> ProductionFacilities;
+    
+    // CONSUMPTION (demand side)
+    UPROPERTY()
+    TMap<FString, float> ConsumptionRates;  // tons/day
+    
+    // INVENTORY (what's actually on the dock)
+    UPROPERTY()
+    TMap<FString, float> WarehouseInventory;
+    
+    // CAPACITY (max storage)
+    UPROPERTY()
+    TMap<FString, float> WarehouseCapacity;
+    
+    // Non-linear price: inverse demand curve
+    float CalculateClearingPrice(FString CommodityId);
+    
+    // When a ship arrives with cargo
+    void OnCargoArrived(FString CommodityId, float Quantity, float Price);
+    
+    // When a ship departs with cargo
+    void OnCargoDeparted(FString CommodityId, float Quantity);
+    
+    // Daily tick: production, consumption, price adjustment
+    void TickEconomy(float DeltaDays);
+};
+
+// Price formula: hyperbolic, NOT linear
+// Price = Base * (3.0 / (scarcityRatio + 0.5)) * capacityPressure
+// When inventory is low → price spikes (scarcity)
+// When inventory is high → price crashes (glut)
+// When warehouse nearly full → fire sale prices
 ```
 
 ### 3.4 Ship System

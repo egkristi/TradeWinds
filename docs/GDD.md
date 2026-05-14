@@ -2,7 +2,7 @@
 
 > **Version:** 1.0 
 > **Date:** 2026-05-14 
-> **Status:** Draft — awaiting GitHub repo creation 
+> **Status:** Draft — awaiting final review before implementation 
 > **Jira:** MUNIN-70 
 
 ---
@@ -83,19 +83,20 @@
 
 ```
 Main Menu
-  ├── New Game
-  │    ├── Select Era (Modern / Age of Sail / Steam Era / Custom)
-  │    ├── Select Map (World / Region / Custom)
-  │    ├── Select Visual Style (Top-Down / Isometric / Full 3D / Paper Map / Data Dashboard)
-  │    ├── Configure Difficulty & AI Opponents
-  │    └── Start
-  ├── Continue
-  ├── Multiplayer
-  │    ├── Host Game (Local / Online)
-  │    ├── Join Game (LAN / Server Browser)
-  │    └── Spectate
-  ├── Options
-  └── Mods / Workshop
+ ├── New Game
+ │ ├── Select Era (Modern / Age of Sail / Steam Era / Global Historical / Custom)
+ │ ├── Select Map (World / Region / Custom)
+ │ ├── Select Visual Style (Top-Down/Isometric / Paper Map)
+ │ ├── Configure Camera Mode (3D Zoom / Data Dashboard / Cinematic / Default)
+ │ ├── Configure Difficulty & AI Opponents
+ │ └── Start
+ ├── Continue
+ ├── Multiplayer
+ │ ├── Host Game (Local / Online)
+ │ ├── Join Game (LAN / Server Browser)
+ │ └── Spectate
+ ├── Options
+ └── Mods / Workshop
 ```
 
 ### 3.2 Core Loop
@@ -195,7 +196,7 @@ Every ship needs a captain. Captains are not interchangeable — they are *peopl
 - Low morale → mutiny, desertion, sabotage
 - Crew can gain **experience** → better ship handling
 - Special crew: navigator, doctor, cook, marine, engineer
-- Historical eras: indentured servants, press-ganged sailors (toggleable, with context)
+
 
 #### Captain Events
 
@@ -391,7 +392,7 @@ Pre-industrial maritime trade across all cultures. No gunpowder-era ships.
 - **Polynesian:** Celestial navigation (no compass), star charts, island discovery
 - **Mediterranean:** Galley combat (ramming), trireme fleets, amphora cargo
 
-**Commodities:** Amber, walrus ivory, silk, porcelain, spices, incense, obsidian, grain, wine, olive oil, salt, furs (toggleable/historical context)
+**Commodities:** Amber, walrus ivory, silk, porcelain, spices, incense, obsidian, grain, wine, olive oil, salt, furs 
 
 **Routes:**
 - Baltic Sea amber route
@@ -571,36 +572,46 @@ Pre-industrial maritime trade across all cultures. No gunpowder-era ships.
 
 ## 10. Visual Styles
 
-Players can switch visual styles at any time (or lock per game):
+Players can switch visual presentation at any time:
 
-### 10.1 Top-Down / Isometric (Classic)
+### Primary Visual Style: Top-Down / Isometric
 - 2D sprites or 3D models viewed from above
 - Hex or grid-based movement
 - Clean UI, information-dense
 - Best for: Strategy purists, data-first players
+- This is the DEFAULT and MAIN visual style for gameplay
 
-### 10.2 Full 3D
-- UE5 Nanite/Lumen quality
-- Detailed ship models, animated water, dynamic weather
-- Cinematic camera angles
-- Best for: Immersion, screenshots, streamers
-
-### 10.3 Paper Map
+### Secondary Visual Style: Paper Map
 - Hand-drawn nautical chart aesthetic
 - Compass roses, rhumb lines, wind roses
 - Ink-and-parchment color palette
-- Best for: Historical mode, artistic feel
+- Best for: Historical mode, artistic feel, immersion
 
-### 10.4 Data Dashboard
-- Bloomberg-terminal inspired
+### Camera Modes (Not Full Visual Styles)
+
+These are VIEW MODES within the primary style, not separate art pipelines:
+
+**Full 3D Camera Mode**
+- Zoom into UE5 Nanite/Lumen quality
+- Detailed ship models, animated water, dynamic weather
+- Cinematic camera angles
+- Best for: Screenshots, streamers, admiring your fleet
+- Cost: One art pipeline (same as primary), different camera
+
+**Data Dashboard Overlay**
+- Bloomberg-terminal inspired HUD
 - Real-time graphs, heatmaps, data tables
 - Minimal chrome, maximal information
 - Best for: Hardcore players, data visualization
+- Cost: UI overlay, not separate art pipeline
 
-### 10.5 Cinematic
+**Cinematic Camera Mode**
 - Focus on ship detail, ports, weather
 - Almost no UI — contextual popups only
 - Best for: Casual play, screenshots, roleplay
+- Cost: Camera + post-processing, not separate art pipeline
+
+**Design principle:** One art pipeline, multiple ways to view it. This is realistic for a hobby project.
 
 ---
 
@@ -608,46 +619,91 @@ Players can switch visual styles at any time (or lock per game):
 
 ### 11.1 Commodity Prices
 
+#### Tier 1: Always Included (Free, Unrestricted)
+
 | Source | Data | Update Frequency |
 |--------|------|-----------------|
+| **World Bank** | 60+ commodities | Monthly |
+| **IMF** | Broad basket | Monthly |
 | **UN Comtrade** | Global trade flows | Annual |
-| **World Bank Commodity Price Data** | 60+ commodities | Monthly |
-| **Baltic Exchange** | Freight indices (BDI, BDTI, etc.) | Daily |
-| **IMF Primary Commodity Prices** | Broad basket | Monthly |
-| **Trading Economics API** | Real-time commodity quotes | Hourly |
+
+#### Tier 2: Included with Caution (Rate Limits)
+
+| Source | Data | Limit |
+|--------|------|-------|
+| **Trading Economics** | Real-time quotes | 100 req/day (free tier) |
+
+#### Tier 3: NOT Included (Too Expensive/Restricted)
+
+| Source | Why Excluded |
+|--------|-------------|
+| **Baltic Exchange** | $10k+/year |
 
 ### 11.2 Port Data
 
+#### Tier 1
+
 | Source | Data |
 |--------|------|
-| **World Port Index (NIMA)** | Port locations, facilities |
-| **Lloyd's List** | Port throughput, congestion |
-| **MarineTraffic / VesselFinder** | Real ship positions, port calls |
-| **UNCTAD Liner Shipping Index** | Port connectivity |
+| **World Port Index** | Port locations, facilities |
+| **UNCTAD** | Port connectivity, throughput |
+
+#### Tier 2
+
+| Source | Data | Limit |
+|--------|------|-------|
+| **OpenStreetMap** | Port details | ODbL license |
+
+#### Tier 3
+
+| Source | Why Excluded |
+|--------|-------------|
+| **Lloyd's List** | Enterprise-only pricing |
+| **MarineTraffic** | ToS prohibits commercial use |
 
 ### 11.3 Weather & Ocean
 
+#### Tier 1
+
 | Source | Data |
 |--------|------|
-| **NOAA/NWS** | Marine forecasts, storm tracks |
-| **ECMWF** | Global weather models |
-| **Open-Meteo API** | Free weather API (no key needed) |
-| **Copernicus Marine Service** | Ocean currents, sea ice |
-| **NSIDC** | Arctic/Antarctic ice extent |
+| **Open-Meteo** | Marine forecasts, weather (no key) |
+| **NOAA** | Marine forecasts (public domain) |
+| **NSIDC** | Sea ice extent |
+| **GEBCO** | Ocean depth |
+
+#### Tier 2
+
+| Source | Data | Limit |
+|--------|------|-------|
+| **Copernicus Marine** | Ocean currents | Commercial license required |
+
+#### Tier 3
+
+| Source | Why Excluded |
+|--------|-------------|
+| **ECMWF** | Academic/research only |
 
 ### 11.4 Ship Data
+
+#### Tier 1
 
 | Source | Data |
 |--------|------|
 | **IMO GISIS** | Ship registry, specs |
-| **Clarksons Research** | Fleet data, newbuildings |
-| **VesselValue** | Ship valuations |
+
+#### Tier 3
+
+| Source | Why Excluded |
+|--------|-------------|
+| **Clarksons Research** | Enterprise-only |
+| **VesselValue** | No free tier |
 
 ### 11.5 Historical Data
 
 | Source | Era | Data |
 |--------|-----|------|
-| **CLIWOC** (Climatological Database for the World's Oceans) | 1750–1850 | Ship logs, weather |
+| **CLIWOC** | 1750–1850 | Statistical weather distributions (sparse — samples, not forecasts) |
 | **East India Company Records** | 1600–1850 | Trade routes, prices |
 | **Historical GIS** | Various | Port development over time |
 
@@ -689,32 +745,32 @@ Players can switch visual styles at any time (or lock per game):
 ```
 Main Menu
 ├── New Game Wizard
-│  ├── Era Selection (visual cards)
-│  ├── Map Selection (interactive globe)
-│  ├── Visual Style (live preview)
-│  ├── Difficulty (slider + presets)
-│  └── AI Configuration
+│ ├── Era Selection (visual cards)
+│ ├── Map Selection (interactive globe)
+│ ├── Visual Style (live preview)
+│ ├── Difficulty (slider + presets)
+│ └── AI Configuration
 ├── Port Screen
-│  ├── Market (buy/sell with sparklines)
-│  ├── Shipyard (3D model viewer)
-│  ├── Crew (cards with portraits)
-│  ├── Warehouse (inventory grid)
-│  └── Services (repair, insurance)
+│ ├── Market (buy/sell with sparklines)
+│ ├── Shipyard (3D model viewer)
+│ ├── Crew (cards with portraits)
+│ ├── Warehouse (inventory grid)
+│ └── Services (repair, insurance)
 ├── Navigation Screen
-│  ├── Map (zoomable, layers)
-│  ├── Route Planner (drag handles)
-│  ├── Weather Overlay (animated)
-│  └── Fleet Status (ship cards)
+│ ├── Map (zoomable, layers)
+│ ├── Route Planner (drag handles)
+│ ├── Weather Overlay (animated)
+│ └── Fleet Status (ship cards)
 ├── Finance Screen
-│  ├── Balance Sheet
-│  ├── Profit/Loss History
-│  ├── Stock Price (if publicly traded)
-│  └── Loans & Insurance
+│ ├── Balance Sheet
+│ ├── Profit/Loss History
+│ ├── Stock Price (if publicly traded)
+│ └── Loans & Insurance
 └── Encyclopedia
-  ├── Ports (real-world data)
-  ├── Ships (historical specs)
-  ├── Commodities (price history)
-  └── Events (timeline)
+ ├── Ports (real-world data)
+ ├── Ships (historical specs)
+ ├── Commodities (price history)
+ └── Events (timeline)
 ```
 
 ### 13.2 Key UI Principles
