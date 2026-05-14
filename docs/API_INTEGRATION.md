@@ -1,5 +1,8 @@
 # Argosy Tides — Real-World Data Integration Guide
 
+> *"Your mind is tossing on the ocean; There, where your argosies with portly sail, Like signiors and rich burghers on the flood... Do overpeer the petty traffickers..."*  
+> — *The Merchant of Venice*, Shakespeare
+
 > **Version:** 1.0  > **Date:** 2026-05-14  
 > **Jira:** MUNIN-70  
 
