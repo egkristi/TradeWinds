@@ -125,6 +125,51 @@ Main Menu
 - Historical events as scenarios (Gold Rush, Spice Wars, Containerization)
 - Community-created scenarios via modding
 
+### 4.5 Global Historical Expeditions (B.C.–1600)
+
+Pre-industrial maritime trade across all cultures. No gunpowder-era ships.
+
+**Ship classes by culture:**
+
+| Culture | Ship Class | Era | Specialization |
+|---------|-----------|-----|---------------|
+| **Viking** | Knarr | 800–1100 | Cargo, coastal, river-capable |
+| **Viking** | Longship (Skeid) | 800–1100 | Fast raids, shallow draft |
+| **Viking** | Dragon Ship (Drekar) | 900–1100 | Long-range, prestige |
+| **Chinese** | Junk (Fuchuan) | 200–1500 | Balanced cargo, junk rig |
+| **Chinese** | Treasure Ship (Baochuan) | 1405–1433 | Massive cargo, Zheng He's fleet |
+| **Chinese** | Sand Boat (Shachuan) | 800–1500 | River/canal, shallow draft |
+| **Arab** | Dhow (Boom) | 500–1500 | Monsoon trade, lateen sail |
+| **Arab** | Baghlah | 700–1600 | Deep cargo, Red Sea / Indian Ocean |
+| **Polynesian** | Double Canoe (Waka) | 500–1500 | Exploration, no compass |
+| **Polynesian** | Outrigger Canoe | 500–1500 | Island hopping, shallow draft |
+| **Mediterranean** | Carrack | 1300–1600 | Late Age of Sail precursor |
+| **Mediterranean** | Galley | 500–1500 | Rowed, coastal, slave-powered |
+
+**Unique mechanics:**
+- **Viking:** Raid OR trade (dual economy), fjord navigation, seasonal sailing only
+- **Chinese:** Treasure fleet expeditions (massive multi-ship missions), compass navigation, silk trade
+- **Arab:** Monsoon timing (seasonal routes), dhow specialization, incense/spice focus
+- **Polynesian:** Celestial navigation (no compass), star charts, island discovery
+- **Mediterranean:** Galley combat (ramming), trireme fleets, amphora cargo
+
+**Commodities:** Amber, walrus ivory, silk, porcelain, spices, incense, obsidian, grain, wine, olive oil, salt, furs, slaves (toggleable/historical context)
+
+**Routes:**
+- Baltic Sea amber route
+- Silk Road maritime (South China Sea → Indian Ocean → Red Sea)
+- Spice route (Moluccas → India → Arabia → Mediterranean)
+- Pacific island chain routes
+- Mediterranean grain routes (Alexandria → Rome)
+
+**Hazards:** Pirates (all eras), storms, scurvy, mutiny, shipwreck, ice (Viking routes), monsoon timing, reef navigation
+
+**Events:**
+- Viking raids on monasteries (loot + reputation hit)
+- Zheng He's treasure fleet voyages (massive reward)
+- Typhoon season (South China Sea)
+- Monsoon wind reversal (Arabian Sea / Indian Ocean)
+
 ---
 
 ## 5. Ship System

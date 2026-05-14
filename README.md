@@ -25,6 +25,7 @@
 - **Modern (2024+)** — Containerization, global supply chains, mega-ships
 - **Age of Sail (1650–1850)** — Spice trade, pirates, exploration
 - **Steam Era (1850–1950)** — Industrial revolution, canals, telegraphs
+- **Global Historical Expeditions** — Viking longships, Chinese treasure fleets, Arab dhows, Polynesian canoes
 - **Custom scenarios** — Community-created challenges
 
 ### 🎨 Visual Styles

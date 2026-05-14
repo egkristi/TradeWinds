@@ -13,10 +13,10 @@
 | **Engine** | Unreal Engine | 5.4+ | Core game engine, rendering, networking |
 | **Language (Game)** | C++ | C++20 | Core systems, performance-critical code |
 | **Language (UI/Gameplay)** | Blueprint | UE5 | Rapid prototyping, UI, gameplay scripting |
-| **Language (Tools)** | Python | 3.11+ | Data pipeline, ETL, build automation |
+| **Language (Tools)** | Rust | 1.78+ | Data pipeline, CLI tools, performance-critical utilities |
 | **Database** | SQLite (local) / PostgreSQL (MP server) | 3.45+ / 16+ | Game state, market data, player progress |
 | **Networking** | UE5 Netcode + Dedicated Server | — | Multiplayer, authoritative server |
-| **Data Fetching** | Python + REST APIs | — | Real-world commodity, weather, port data |
+| **Data Fetching** | Rust + reqwest + tokio | — | Real-world commodity, weather, port data |
 | **Build System** | Unreal Build Tool (UBT) + CMake | — | Compilation, packaging |
 | **CI/CD** | GitHub Actions | — | Automated builds, tests, packaging |
 | **Version Control** | Git + Git LFS | — | Source + asset management |
@@ -106,12 +106,17 @@ TradeWinds/
 │   │       └── HUD.h/cpp
 │   └── TradeWinds.Target.cs
 ├── Tools/
-│   ├── DataPipeline/
-│   │   ├── fetch_commodity_prices.py
-│   │   ├── fetch_weather.py
-│   │   ├── fetch_port_data.py
-│   │   ├── build_datatables.py
-│   │   └── update_game_data.py
+│   ├── DataPipeline/ (Rust crate)
+│   │   ├── Cargo.toml
+│   │   ├── src/
+│   │   │   ├── main.rs
+│   │   │   ├── fetch_commodity_prices.rs
+│   │   │   ├── fetch_weather.rs
+│   │   │   ├── fetch_port_data.rs
+│   │   │   ├── build_datatables.rs
+│   │   │   ├── update_game_data.rs
+│   │   │   └── lib.rs
+│   │   └── tests/
 │   ├── Build/
 │   │   ├── package_game.py
 │   │   └── upload_to_steam.py
@@ -356,7 +361,7 @@ Client (Player 1) <--> Dedicated Server <--> Client (Player 2..N)
 External APIs (NOAA, Baltic Exchange, etc.)
     |
     v
-Python Fetchers (Tools/DataPipeline/)
+Rust Fetcher Tools (Tools/DataPipeline/)
     |
     v
 Data Validation & Normalization
@@ -371,29 +376,32 @@ UE5 Data Tables (Content/DataTables/)
 In-Game Market & Weather Systems
 ```
 
-### 5.2 Fetcher Scripts
+### 5.2 Fetcher Tools
 
-```python
-# Tools/DataPipeline/fetch_commodity_prices.py
-import requests, sqlite3, json
-from datetime import datetime
+```rust
+# Tools/DataPipeline (Rust crate)
+// src/fetch_commodity_prices.rs
+use reqwest;
+use serde_json;
+use tokio;
 
-COMMODITY_APIS = {
-    "baltic_dry_index": "https://api.balticexchange.com/bdi",
-    "world_bank": "https://api.worldbank.org/v2/commodity",
-    # Fallback sources
+static COMMODITY_APIS: phf::Map<&'static str, &'static str> = phf_map! {
+    "baltic_dry_index" => "https://api.balticexchange.com/bdi",
+    "world_bank" => "https://api.worldbank.org/v2/commodity",
+    // Fallback sources
+};
+
+pub async fn fetch_prices() -> Result<Vec<CommodityPrice>, FetchError> {
+    // Try primary source
+    // Fall back to secondary
+    // Store in SQLite cache
+    Ok(vec![])
 }
 
-def fetch_prices():
-    """Fetch latest commodity prices from multiple sources."""
-    # Try primary source
-    # Fall back to secondary
-    # Store in SQLite cache
-    pass
-
-def update_game_data():
-    """Generate UE5 DataTable CSV from cached data."""
-    pass
+pub fn update_game_data() -> Result<(), FetchError> {
+    // Generate UE5 DataTable CSV from cached data
+    Ok(())
+}
 ```
 
 ### 5.3 Offline Fallback
@@ -607,7 +615,7 @@ class UTradeWindsModAPI : public UObject {
 | Blender / Maya | 4.0+ / 2024+ | 3D modeling |
 | Substance Painter | 2024+ | Texturing |
 | FMOD / Wwise | Latest | Audio middleware |
-| Python | 3.11+ | Data pipeline |
+| Rust | 1.78+ | Data pipeline, CLI tools |
 | Git + LFS | Latest | Version control |
 
 ### 13.2 Recommended Hardware

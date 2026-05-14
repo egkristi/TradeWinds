@@ -14,7 +14,7 @@ Phased development approach: MVP first, then iterate. Each phase is a vertical s
 |-------|----------|------|-------------|
 | **Phase 0** | 1 week | Foundation | Repo, UE5 project, CI/CD |
 | **Phase 1** | 2 weeks | MVP — Modern Mode | Playable single-player trading loop |
-| **Phase 2** | 2 weeks | Data & Depth | Real APIs, weather, advanced trading |
+| **Phase 2** | 2 weeks | Data & Depth | Rust data pipeline, real APIs, weather, advanced trading |
 | **Phase 3** | 2 weeks | Visual Polish | All visual styles, UI, audio |
 | **Phase 4** | 2 weeks | Historical Eras | Age of Sail + Steam Era |
 | **Phase 5** | 2 weeks | Multiplayer | Local + online MP |
