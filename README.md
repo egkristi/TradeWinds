@@ -149,7 +149,7 @@ cargo run -- build-all
 - Simple UI screens
 
 ### ⚠️ Known Blockers
-- **Visual Studio 2022 Required** - C++ compilation and Rust MSVC linker
+- **Unreal Engine 5.4 Required** - Install via Epic Games Launcher
 - **No Visual Assets Yet** - Placeholder geometry only
 - **CI/CD Not Tested** - Workflows configured but not validated
 

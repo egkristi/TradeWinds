@@ -94,8 +94,7 @@ Phase 0 ──→ Phase 1 ──→ Phase 2 ──→ Phase 3 ──→ Phase 4 
 - ✅ MIT License
 
 ### Outstanding Blockers
-- ⏳ Visual Studio 2022 installation required for C++ compilation
-- ⏳ Rust MSVC linker requires VS C++ tools
+- ⏳ Unreal Engine 5.4 installation required for project launch
 - ⏳ CI/CD workflows not yet validated (no runs triggered)
 
 ---

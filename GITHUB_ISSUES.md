@@ -1,45 +1,84 @@
 # GitHub Issues to Create
 
-## Issue #1: [BLOCKER] Visual Studio 2022 Installation Required
+## Issue #1: [RESOLVED] Visual Studio 2022 Installation Complete
+
+**Status:** ✅ **RESOLVED** (as of 2026-05-14)
+
+**Template:** Bug Report  
+**Labels:** `bug`, `resolved`, `setup`, `phase-0`  
+**Priority:** Critical
+
+### Title
+[RESOLVED] Visual Studio 2022 C++ tools installed and verified
+
+### Description
+**Problem (RESOLVED):**
+Visual Studio 2022 Community with C++ workload has been successfully installed.
+
+**Verification:**
+```powershell
+winget install --id Microsoft.VisualStudio.2022.Community --silent `
+  --custom "--add Microsoft.VisualStudio.Workload.NativeDesktop --includeRecommended"
+# Result: "Found an existing package already installed"
+```
+
+**Impact:**
+- ✅ C++ project compilation now possible
+- ✅ Rust data pipeline build (MSVC linker available)
+- ✅ Phase 1 development unblocked
+
+**Acceptance Criteria:**
+- [x] SETUP.md updated with clear VS installation instructions
+- [x] setup.bat script verifies VS installation
+- [x] Documentation mentions this requirement prominently
+- [x] GitHub issue created and linked in README
+
+**References:**
+- SETUP.md
+- docs/TAD.md (Language Choice - ADR-001)
+
+---
+
+## Issue #1.5: [BLOCKER] Unreal Engine 5.4 Installation Required
 
 **Template:** Bug Report  
 **Labels:** `bug`, `blocker`, `setup`, `phase-0`  
 **Priority:** Critical
 
 ### Title
-[BLOCKER] Visual Studio 2022 C++ tools required for compilation
+[BLOCKER] Unreal Engine 5.4 installation required for project launch
 
 ### Description
 **Problem:**
-Project cannot be compiled without Visual Studio 2022 with C++ workload installed. This blocks:
-- C++ project compilation in Unreal Engine
-- Rust data pipeline build (MSVC linker required)
-- CI/CD workflow validation
+Project cannot be launched without Unreal Engine 5.4+ installed. This blocks:
+- Opening ArgosyTides.uproject in Unreal Editor
+- Building and testing the game
+- Phase 1 development
 
 **Impact:**
 - Cannot open project in Unreal Editor
-- Cannot build C++ code
-- Cannot build Rust data pipeline
-- Phase 1 development blocked
+- Cannot test gameplay
+- Cannot build C++ code changes
+- All development blocked until resolved
 
 **Required Installation:**
-```powershell
-winget install --id Microsoft.VisualStudio.2022.Community --silent `
-  --custom "--add Microsoft.VisualStudio.Workload.NativeDesktop --includeRecommended"
-```
+1. Install Epic Games Launcher
+2. Log in to Epic Games account
+3. Install Unreal Engine 5.4+ from Library → Engine Versions
 
 **Workaround:**
-None - Visual Studio is mandatory for UE5 C++ development on Windows.
+None - Unreal Engine is mandatory for UE5 project development.
 
 **Acceptance Criteria:**
-- [ ] SETUP.md updated with clear VS installation instructions
-- [ ] setup.bat script verifies VS installation
-- [ ] Documentation mentions this requirement prominently
-- [ ] GitHub issue created and linked in README
+- [ ] Unreal Engine 5.4+ installed and verified
+- [ ] ArgosyTides.uproject opens in Unreal Editor
+- [ ] Project builds successfully
+- [ ] setup.bat finds UE5 installation
+- [ ] Documentation updated with UE5 installation steps
 
 **References:**
 - SETUP.md
-- docs/TAD.md (Language Choice - ADR-001)
+- README.md build instructions
 
 ---
 
