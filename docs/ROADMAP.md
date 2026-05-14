@@ -87,15 +87,18 @@ Phase 0 ──→ Phase 1 ──→ Phase 2 ──→ Phase 3 ──→ Phase 4 
 - ✅ C++ core systems (GameInstance, DataManager, WeatherSystem, FleetManager, Ship)
 - ✅ Rust data pipeline with API integrations
 - ✅ Python prototype for quick testing
-- ✅ CI/CD workflows (GitHub Actions)
+- ✅ CI/CD workflows configured (GitHub Actions; validation in progress)
 - ✅ Build scripts (setup.bat, build.bat)
 - ✅ Comprehensive documentation (GDD, TAD, ROADMAP, ADRs)
 - ✅ AI agent instructions (5 files)
 - ✅ MIT License
 
+> Note: the first `Build Windows` workflow run failed due to an invalid Unreal Engine setup action reference, and the Windows build path remains under review.
+
 ### Outstanding Blockers
 - ⏳ Unreal Engine 5.4 installation required for project launch
-- ⏳ CI/CD workflows not yet validated (first runs failed due to invalid action references)
+- ⏳ Build Windows workflow requires a valid Unreal Engine setup action or a self-hosted runner with UE5 installed
+- ⏳ CI/CD workflows still being validated
 
 ### ✅ Resolved Blockers
 - ✅ Visual Studio 2022 Community installed (v17.14.32)

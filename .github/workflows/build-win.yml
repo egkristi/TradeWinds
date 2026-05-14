@@ -24,11 +24,16 @@ jobs:
     - name: Setup Git LFS
       run: git lfs pull
     
-    - name: Setup Unreal Engine
-      uses: adamrehn/ue5-action@v1
-      with:
-        engine-version: '5.4'
-    
+    - name: Check Unreal Engine Installation
+      shell: pwsh
+      run: |
+        $uePath = 'C:\Program Files\Epic Games\UE_5.4\Engine\Build\BatchFiles\Build.bat'
+        if (-not (Test-Path $uePath)) {
+          Write-Error "Unreal Engine 5.4 is not installed on this runner. Use a self-hosted runner or install UE5 before running this workflow."
+          exit 1
+        }
+        Write-Host "Unreal Engine path found: $uePath"
+
     - name: Build Project
       run: |
         $UE5_PATH = "C:\Program Files\Epic Games\UE_5.4\Engine\Build\BatchFiles"

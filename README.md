@@ -92,6 +92,8 @@ git lfs pull
 
 See [`SETUP.md`](SETUP.md) for detailed installation instructions.
 
+> **Note:** The GitHub Actions `Build Windows` workflow currently requires a self-hosted runner with Unreal Engine 5.4 installed. Hosted Windows runners do not include UE5 by default.
+
 ### Build
 
 **Option 1: Unreal Editor (Recommended)**
@@ -151,9 +153,9 @@ cargo run -- build-all
 - Simple UI screens
 
 ### ⚠️ Known Blockers
-- **Unreal Engine 5.4 Required** - Install via Epic Games Launcher
+- **Unreal Engine 5.4 Required** - Install via Epic Games Launcher or use self-hosted build runner
 - **No Visual Assets Yet** - Placeholder geometry only
-- **CI/CD Not Tested** - Workflows configured but not validated; first runs failed due to invalid action references
+- **CI/CD Not Validated** - GitHub Actions configured; `Build Windows` currently requires a valid UE5 setup path and the data pipeline is still under verification
 
 ### ✅ Resolved Blockers
 - **Visual Studio 2022** - Installed and verified (v17.14.32)
@@ -172,25 +174,23 @@ See [Issues](https://github.com/egkristi/ArgosyTides/issues) for current blocker
 | [TAD](docs/TAD.md) | Technical Architecture Document |
 | [ROADMAP](docs/ROADMAP.md) | Implementation roadmap with phased milestones |
 | [API_INTEGRATION](docs/API_INTEGRATION.md) | Real-world data sources and integration guide |
-| [MODDING_GUIDE](docs/MODDING_GUIDE.md) | Creating mods and scenarios |
 
 ### Development Guides
 | Document | Description |
 |----------|-------------|
 | [SETUP.md](SETUP.md) | Installation and environment setup |
 | [PHASE0_STATUS.md](PHASE0_STATUS.md) | Phase 0 completion report |
-| [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) | Comprehensive project overview |
-| [CHANGELOG.md](CHANGELOG.md) | Version history and changes |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution guidelines |
+| [ROADMAP](docs/ROADMAP.md) | Milestone status and plan |
+| [GDD](docs/GDD.md) | Game design and feature definitions |
+
+> Additional developer docs are planned as the project matures.
 
 ### AI Agent Instructions
 | Document | For | Description |
 |----------|-----|-------------|
-| [`.cursorrules`](.cursorrules) | Cursor IDE | Comprehensive coding standards and patterns |
 | [`.github/copilot-instructions.md`](.github/copilot-instructions.md) | GitHub Copilot | Quick reference for Copilot |
 | [`.github/AI_INSTRUCTIONS.md`](.github/AI_INSTRUCTIONS.md) | All AI Agents | Detailed architecture and workflows |
 | [`CLAUDE.md`](CLAUDE.md) | Claude Code | Claude-specific instructions |
-| [`.sourcegraph/cody.json`](.sourcegraph/cody.json) | Cody | Sourcegraph Cody configuration |
 
 ---
 
@@ -201,7 +201,7 @@ This project includes comprehensive AI agent instructions for multiple coding as
 - **Cursor IDE:** Automatically loads `.cursorrules`
 - **GitHub Copilot:** Reads `.github/copilot-instructions.md`
 - **Claude Code:** Reads `CLAUDE.md`
-- **Cody:** Reads `.sourcegraph/cody.json`
+- **Other agents:** Additional agent configs are planned as the repo grows
 
 These files provide context about the project architecture, coding standards, and current development phase.
 
@@ -248,12 +248,7 @@ We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## License
 
-| Component | License |
-|-----------|---------|
-| Game code | Proprietary (Phase 1), potential open-source later |
-| Documentation | [CC BY-SA 4.0](LICENSE-DOCS) |
-| Data pipeline tools | [MIT](LICENSE-TOOLS) |
-| Modding API | Open (see [MODDING_GUIDE](docs/MODDING_GUIDE.md)) |
+This repository is currently in early development. The project code is under the repository license defined in [`LICENSE`](LICENSE).
 
 See [GDD Section 12](docs/GDD.md#12-monetization--licensing) for full licensing strategy.
 
