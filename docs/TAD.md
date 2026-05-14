@@ -268,7 +268,272 @@ public:
 };
 ```
 
-### 3.5 Route Planning
+### 3.5 Captain & Crew System
+
+Captains and crew are persistent characters with personality, skills, and relationships.
+
+```cpp
+USTRUCT()
+struct FCaptainPersonality {
+    UPROPERTY()
+    float Cautiousness;       // -storm risk, -speed
+    
+    UPROPERTY()
+    float Aggressiveness;     // +speed, +piracy risk
+    
+    UPROPERTY()
+    float Charisma;           // +crew morale, +negotiation
+    
+    UPROPERTY()
+    float Greed;              // +smuggling, -loyalty
+    
+    UPROPERTY()
+    float Courage;            // Flee vs. fight in storms
+    
+    UPROPERTY()
+    float Loyalty;            // 0-100, affects defection/mutiny
+};
+
+UCLASS()
+class UCaptain : public UObject {
+public:
+    UPROPERTY()
+    FName Name;
+    
+    UPROPERTY()
+    FText Backstory;
+    
+    UPROPERTY()
+    FCaptainPersonality Personality;
+    
+    UPROPERTY()
+    TMap<FName, int32> Skills;  // Navigation, Combat, Trade, Leadership
+    
+    UPROPERTY()
+    int32 ExperienceLevel;
+    
+    UPROPERTY()
+    float Health;  // 0-100, injuries reduce temporarily
+    
+    UPROPERTY()
+    bool bIsAlive;
+    
+    UPROPERTY()
+    FDateTime JoinedDate;
+    
+    UPROPERTY()
+    TArray<FGameEvent> PersonalHistory;
+    
+    UPROPERTY()
+    TMap<FName, float> Relationships;  // With other captains, rivals
+    
+    // Events
+    UFUNCTION()
+    void OnStormEncounter(FWeatherConditions Storm);
+    
+    UFUNCTION()
+    void OnPiracyEncounter(FPirateShip Pirates);
+    
+    UFUNCTION()
+    void OnMutinyCheck(float FleetMorale);
+    
+    UFUNCTION()
+    void OnRivalOffer(URivalCompany* Rival, float BribeAmount);
+};
+
+USTRUCT()
+struct FCrewMember {
+    UPROPERTY()
+    FName Name;
+    
+    UPROPERTY()
+    ECrewRole Role;  // Sailor, Navigator, Doctor, Cook, Marine, Engineer
+    
+    UPROPERTY()
+    int32 SkillLevel;
+    
+    UPROPERTY()
+    float Morale;
+    
+    UPROPERTY()
+    float Health;
+};
+
+USTRUCT()
+struct FCrew {
+    UPROPERTY()
+    int32 Count;
+    
+    UPROPERTY()
+    TArray<FCrewMember> Members;
+    
+    UPROPERTY()
+    float AverageMorale;
+    
+    UPROPERTY()
+    float AverageHealth;
+    
+    UPROPERTY()
+    float MutinyRisk;
+    
+    // Skills aggregate
+    float GetNavigationBonus() const;
+    float GetRepairSpeed() const;
+    float GetCombatBonus() const;
+};
+```
+
+### 3.6 Rival System
+
+Rivals are AI opponents with personality, history, and evolving relationships.
+
+```cpp
+UCLASS()
+class URivalManager : public UObject {
+public:
+    UPROPERTY()
+    TArray<URivalCompany*> ActiveRivals;
+    
+    UPROPERTY()
+    TArray<FRivalHistory> HistoryLog;
+    
+    UFUNCTION()
+    void GenerateRivals(int32 Count, EGameEra Era);
+    
+    UFUNCTION()
+    void OnPlayerAction(FPlayerAction Action);
+    
+    UFUNCTION()
+    void OnRivalAction(FRivalAction Action);
+};
+
+UCLASS()
+class URivalCompany : public UObject {
+public:
+    UPROPERTY()
+    FName CompanyName;
+    
+    UPROPERTY()
+    FRivalPersonality Personality;
+    
+    UPROPERTY()
+    TMap<FName, float> RelationshipWithPlayer;  // -100 to +100
+    
+    UPROPERTY()
+    TArray<FGameEvent> SharedHistory;  // Events both player and rival participated in
+    
+    UPROPERTY()
+    TArray<AShip*> Fleet;
+    
+    UPROPERTY()
+    float Wealth;
+    
+    UPROPERTY()
+    ECompanyStatus Status;  // Active, Bankrupt, Merged, Defeated
+    
+    // Rival actions
+    UFUNCTION()
+    void DecideAction();
+    
+    UFUNCTION()
+    void OfferAlliance();
+    
+    UFUNCTION()
+    void DeclarePriceWar(FString Route);
+    
+    UFUNCTION()
+    void AttemptSabotage();
+    
+    UFUNCTION()
+    void RequestRescue(AShip* Ship);  // Rival in distress — do you help?
+};
+
+USTRUCT()
+struct FRivalPersonality {
+    UPROPERTY()
+    ERivalArchetype Archetype;  // Bully, Shadow, Aristocrat, PirateKing, Visionary, Survivor
+    
+    UPROPERTY()
+    float Aggressiveness;       // Attack player routes?
+    
+    UPROPERTY()
+    float Honor;                // Keep agreements? Respect fair play?
+    
+    UPROPERTY()
+    float Cunning;              // Sabotage, espionage, trickery
+    
+    UPROPERTY()
+    float Pride;                // Vengeful when humiliated?
+    
+    UPROPERTY()
+    float Generosity;           // Help others? Share info?
+};
+```
+
+**Rival AI:**
+- Behavior trees with personality-weighted decisions
+- Memory system: rivals remember player actions forever
+- Grudge tracking: specific grievances, not just generic "hostility"
+- Dynamic alliances: rivals ally against dominant player
+- Succession: defeated rival's heir may inherit grudges
+
+### 3.7 Risk & Event System
+
+Events are not random dice rolls — they are *situations* with meaningful choices.
+
+```cpp
+UCLASS()
+class UEventSystem : public UObject {
+public:
+    UFUNCTION()
+    void EvaluateStormRisk(AShip* Ship, FRoute Route, FWeatherForecast Forecast);
+    
+    UFUNCTION()
+    void TriggerStormEvent(AShip* Ship, FWeatherConditions Storm);
+    
+    UFUNCTION()
+    void TriggerPiracyEvent(AShip* Ship, FPirateShip Pirates);
+    
+    UFUNCTION()
+    void TriggerMutinyEvent(AShip* Ship, FCrew Crew);
+    
+    UFUNCTION()
+    void TriggerRivalEvent(URivalCompany* Rival, ERivalEventType Type);
+    
+    // Player choice resolution
+    UFUNCTION()
+    void ResolvePlayerChoice(FEventChoice Choice, AActor* Context);
+};
+
+USTRUCT()
+struct FEventChoice {
+    UPROPERTY()
+    FText Description;
+    
+    UPROPERTY()
+    float SuccessChance;
+    
+    UPROPERTY()
+    TArray<FEventConsequence> SuccessConsequences;
+    
+    UPROPERTY()
+    TArray<FEventConsequence> FailureConsequences;
+    
+    UPROPERTY()
+    TArray<FText> SuccessFlavour;  // Story text on success
+    
+    UPROPERTY()
+    TArray<FText> FailureFlavour;  // Story text on failure
+};
+```
+
+**Storm stages:**
+1. Warning → player decides: divert, reduce sail, or push through
+2. Building → escalating consequences: damage, crew injury, cargo loss
+3. Peak → survival choices: heave-to, abandon cargo, captain's courage check
+4. Aftermath → assess, decide: limp to port or call rescue
+
+### 3.8 Company Progression
 
 ```cpp
 class URoutePlanner : public UObject {

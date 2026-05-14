@@ -74,6 +74,199 @@ Main Menu
 
 ---
 
+## 3.4 Player Fantasy & Emotional Core
+
+### Why TradeWinds?
+
+> *"Real-world data is a premise, not a hook. People don't buy games because prices are real — they buy because it's fun to build something."*
+
+TradeWinds is not a spreadsheet with ships. It's a **story generator** where *you* are the protagonist building a legacy. Every voyage writes a chapter. Every storm, betrayal, and triumph becomes a story you tell.
+
+---
+
+### The Fantasy: "I am building a shipping empire with my name on it"
+
+| Emotion | How TradeWinds Delivers |
+|---------|------------------------|
+| **Pride** | Named fleet, company reputation, trophies in headquarters |
+| **Attachment** | Captains with personalities who grow, die, or betray |
+| **Tension** | Storms with real consequence, piracy, mutiny, shipwreck |
+| **Triumph** | Rival defeated, record profit, legendary voyage survived |
+| **Discovery** | Uncharted ports, rare commodities, hidden routes |
+| **Nostalgia** | Looking back at your fleet log — "Remember when Captain Lars survived the typhoon?" |
+
+---
+
+### Company Identity & Progression
+
+**Your shipping company is not a bank account.**
+
+| Feature | Description | Emotional Payoff |
+|---------|-------------|-----------------|
+| **Company Name** | You name your firm. It appears on ships, in news, on leaderboards. | Ownership |
+| **Headquarters** | Start in a small office. Upgrade to a trading house, then a skyscraper with your logo visible on the city skyline. | Visual progression |
+| **Reputation** | Track record affects prices, insurance rates, crew quality, and port privileges. | Status |
+| **Fleet Colors** | Paint your ships. Recognize "your" ships at a glance in port. | Identity |
+| **Company History** | Automatic logbook: first ship, biggest profit, worst storm, rivalries, scandals. | Legacy |
+| **Newspaper Headlines** | "[Your Company] breaks speed record!" or "[Your Company] ship lost in tempest!" | Fame / Drama |
+| **Trophies** | Physical awards in headquarters: ship models, medals, portraits of legendary captains. | Accomplishment |
+
+---
+
+### Captains & Crew: Living Characters
+
+**Ships are steel. Captains are soul.**
+
+Every ship needs a captain. Captains are not interchangeable — they are *people*.
+
+#### Captain Attributes
+
+| Attribute | Impact | Example |
+|-----------|--------|---------|
+| **Name** | Generated or player-named | "Captain Ingrid Sørensen" |
+| **Portrait** | Procedural or pre-made | Age, nationality, era-appropriate attire |
+| **Personality** | Decision bias | Cautious (-storm risk, -speed), Aggressive (+speed, +piracy risk), Charismatic (+crew morale, +negotiation), Greedy (+smuggling, -loyalty) |
+| **Skills** | Improved over time | Navigation (+5% speed), Combat (+10% defense), Trade (+5% negotiation), Leadership (+crew morale) |
+| **Loyalty** | 0–100 | Low loyalty = mutiny risk, defection to rivals, embezzlement |
+| **Courage** | Flee vs. fight in storms/piracy | Cowardly captains abandon cargo |
+| **Backstory** | Flavor + hidden events | "Former navy officer" — better combat, expensive. "Smuggler" — knows hidden ports. |
+| **Relationships** | With other captains, rivals | Rivals poach your captains. Captains have friends/rivals in your fleet. |
+| **Death** | Permanent | Captains can die in storms, combat, disease. Memorial in headquarters. |
+
+#### Captain Archetypes
+
+| Archetype | Strength | Weakness | Quote |
+|-----------|----------|----------|-------|
+| **The Old Salt** | Navigation, weather prediction | Slow to adapt, expensive | "I've sailed these waters since before you were born." |
+| **The Daredevil** | Speed, storm survival | Reckless, damages ships | "Fortune favors the bold!" |
+| **The Smuggler** | Hidden routes, black market | Criminal record, caught = prison | "I know a place they don't check." |
+| **The Noble** | Reputation, negotiation | Expensive, refuses dirty deals | "My word is my bond." |
+| **The Survivor** | Repair, emergency handling | Traumatized, panics in combat | "I've been through worse. Much worse." |
+| **The Scientist** | Weather data, route optimization | Book-smart, bad with crew | "The mathematics don't lie." |
+
+#### Crew System
+
+- Crew has **morale** (affected by pay, conditions, captain, storms)
+- Low morale → mutiny, desertion, sabotage
+- Crew can gain **experience** → better ship handling
+- Special crew: navigator, doctor, cook, marine, engineer
+- Historical eras: slaves, indentured servants, press-ganged sailors (toggleable, with context)
+
+#### Captain Events
+
+| Event | Trigger | Consequence |
+|-------|---------|-------------|
+| **Mutiny** | Low morale + cowardly captain | Ship seized, captain marooned |
+| **Betrayal** | Low loyalty + rival offer | Captain defects with ship |
+| **Heroism** | Storm survival + courageous captain | +Reputation, captain promoted |
+| **Scandal** | Smuggling caught + noble captain | Captain resigns in shame |
+| **Rivalry** | Two captains hate each other | -Morale if on same fleet. Must separate. |
+| **Romance** | Two captains fall in love | +Morale if together, -Morale if separated |
+| **Death** | Storm, combat, disease | Memorial, replacement needed, potential succession crisis |
+
+---
+
+### Rivals: Characters, Not Stats
+
+**"Aggressive expander" is a spreadsheet. "Captain Blackwood who sank my first ship and laughed about it in the Port Royal tavern" is a story.**
+
+#### Rival System
+
+| Feature | Description |
+|---------|-------------|
+| **Named Rivals** | 3–7 AI opponents per game, each with a name, portrait, personality, and backstory |
+| **Personal History** | Rivals remember your interactions: trades blocked, ships sunk, ports stolen |
+| **Arcs** | Rivals evolve: start weak, grow, form alliances, make enemies, rise and fall |
+| **Revenge** | If you bankrupt a rival, their *successor* may hunt you years later |
+| **Diplomacy** | Trade with rivals, form cartels, or wage price wars |
+| **Duel System** | Challenge rival to race, bet, or naval combat (historical modes) |
+
+#### Rival Archetypes
+
+| Name Archetype | Style | Relationship |
+|---------------|-------|--------------|
+| **The Bully** | Attacks your routes, undercuts prices | Hates you from game start |
+| **The Shadow** | Copies your strategies | Obsessed with surpassing you |
+| **The Aristocrat** | Old money, looks down on you | Dismissive until you prove yourself |
+| **The Pirate King** | raids ships, not just trades | Chaotic, dangerous, occasionally useful |
+| **The Visionary** | Innovates first (steam, containers) | Respect if you keep up, contempt if you don't |
+| **The Survivor** | Outlasted everyone else | Quiet, dangerous, has seen empires fall |
+
+#### Rival Events
+
+| Event | Trigger | Drama |
+|-------|---------|-------|
+| **Price War** | Rival undercuts your main route | Both lose money until one surrenders |
+| **Alliance Offer** | Mutual threat appears | Temporary truce — do you trust them? |
+| **Sabotage** | Rival bribes your crew | Ship delayed, cargo spoiled |
+| **Rescue** | Rival's ship in distress | Help them? They owe you. Ignore? They remember. |
+| **Funeral** | Rival dies (bankruptcy, combat) | Attend? +Reputation. Skip? -Reputation. |
+| **Successor** | Rival's heir takes over | New personality, may honor or betray old grudges |
+
+---
+
+### Risk That Matters
+
+**"Hull integrity 0–100%" is a variable. A $200M ship in a building storm with your best captain aboard is a *story*.**
+
+#### Storm Mechanics
+
+| Stage | Visual | Decision |
+|-------|--------|----------|
+| **Calm** | Clear skies | Full speed ahead |
+| **Warning** | Dark clouds, barometer drops | Divert? (adds days) or push through? |
+| **Building** | Rain, wind, waves | Reduce sail? Risk capsize vs. delay |
+| **Peak** | Lightning, massive waves | Heave-to? Abandon cargo? Pray? |
+| **Aftermath** | Broken masts, injured crew, lost cargo | Assess damage, decide: limp to port or call for rescue? |
+
+**Consequences cascade:**
+- Lost cargo → insurance claim → premium increase → rival undercuts your routes
+- Injured captain → months recovery → temporary replacement → replacement makes mistake → another incident
+- Shipwreck → crew deaths → memorial service → morale hit across fleet → one crew mutinies
+
+#### Piracy
+
+- Not a dice roll. Pirates have *names*, *bases*, *patterns*.
+- Pay ransom? Fight? Flee into storm?
+- Pirates remember: pay once, they come back. Fight and win, they avoid you. Fight and lose, they own that route.
+- Historical: privateers with letters of marque (legal pirates) — attack enemy ships, not yours if allied
+
+#### Disease (Historical)
+
+- Scurvy, dysentery, plague
+- Quarantine ports: lose weeks, or risk spreading?
+- Historical: slave ships — moral choice with mechanical consequences
+
+---
+
+### Progression Beyond Money
+
+| Layer | Description | Example |
+|-------|-------------|---------|
+| **Wealth** | Net worth, fleet size | "I own 12 ships" |
+| **Reputation** | How the world sees you | "The Storm Rider — survived three typhoons" |
+| **Knowledge** | Discovered routes, hidden ports | "I found a shortcut through the Sunda Strait" |
+| **Relationships** | Captains, rivals, port governors | "Governor of Malacca gives me first pick" |
+| **Legacy** | Stories, memorials, history log | "Captain Lars died saving the crew. We named the new ship after him." |
+| **Mastery** | Player skill | "I can predict monsoons now. I know when to buy, when to sell." |
+
+---
+
+### The "50 Hour" Hook
+
+**After 50 hours, the player should feel:**
+
+> *"This isn't a game about shipping. It's a game about *my* shipping company, with *my* captains, against *those* rivals, and that time Captain Ingrid survived the typhoon is the coolest thing I've done in any game."*
+
+**Systems that create this:**
+1. **Named, persistent captains** — you remember them
+2. **Rivals with history** — grudges that last decades
+3. **Company identity** — visual, narrative, mechanical
+4. **Emergent stories** — storms, mutinies, betrayals, heroism
+5. **Legacy** — looking back at what you built
+
+---
+
 ## 4. Eras & Game Modes
 
 ### 4.1 Modern Mode (Default)
