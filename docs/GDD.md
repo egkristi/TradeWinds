@@ -25,30 +25,24 @@
 - Mutiny as **labor relations / morale management** — not slavery
 - No human trafficking as commodity, gameplay, or narrative element
 
-### Decision 2: Name Change — "Argosy Tides" → TBD
+### Decision 2: Name Change — "TradeWinds" → "Argosy Tides" ✅ RESOLVED
 
-**Status:** ⚠️ URGENT — "Argosy Tides" is a registered trademark
+**Status:** ✅ RESOLVED
 
 **Evidence:**
-- Sandlot Games Corporation: "ARGOSY TIDES" (USPTO Serial #78424182, Reg #3101783)
-- Registered 2004, renewed 2016, active in video game category
+- Sandlot Games Corporation: "TRADEWINDS" (USPTO Serial #78424182, Reg #3101783) — registered trademark in video game category
 - Series includes: Tradewinds, Tradewinds Legends, Tradewinds Caravans, Tradewinds Odyssey
 - Still sold on Steam and GOG
-- Ubisoft also holds "ARGOSY TIDES CARAVANS" trademark
+- Ubisoft holds "TRADEWINDS CARAVANS" trademark
 
-**Action required:**
-- [ ] Erling proposes new name candidates
-- [ ] Munin checks trademark availability for top 3
-- [ ] Update all documents and repository
+**Action taken:**
+- ✅ Original project name "TradeWinds" identified as trademark conflict
+- ✅ Renamed to "Argosy Tides" (Shakespearean origin, no known trademark conflict)
+- ✅ Repository renamed: github.com/egkristi/ArgosyTides
+- ✅ All documentation updated with new name
+- ✅ Shakespearean tagline added: "Your mind is tossing on the ocean..." — *The Merchant of Venice*
 
-**Proposed alternatives (unverified):**
-| Name | Rationale | Risk |
-|------|-----------|------|
-| **Starlode** | Stars + cargo, adventure feel | Likely available |
-| **Meridian** | Navigation, global reach | May be taken (Meridian: New World exists) |
-| **Keelson** | Core structural timber of a ship | Likely available |
-| **Chartwright** | Mapmaker + empire builder | Likely available |
-| **Amber Passage** | Historic Baltic amber route | Likely available |
+**Note:** "Argosy" derives from the same source (Shakespeare's "argosies" in *The Merchant of Venice*, Act 1, Scene 3). It refers to grand merchant vessels — fitting for the game's theme.
 
 ---
 
@@ -162,72 +156,70 @@ Argosy Tides is not a spreadsheet with ships. It's a **story generator** where *
 
 ---
 
-### Captains & Crew: Living Characters
+### Captains & Crew: Living Characters — MVP (v1)
 
 **Ships are steel. Captains are soul.**
 
 Every ship needs a captain. Captains are not interchangeable — they are *people*.
 
-#### Captain Attributes
+**MVP Scope (Phase 4):** Core identity + skills. Deep personality and arcs come post-launch.
 
-| Attribute | Impact | Example |
-|-----------|--------|---------|
-| **Name** | Generated or player-named | "Captain Ingrid Sørensen" |
-| **Portrait** | Procedural or pre-made | Age, nationality, era-appropriate attire |
-| **Personality** | Decision bias | Cautious (-storm risk, -speed), Aggressive (+speed, +piracy risk), Charismatic (+crew morale, +negotiation), Greedy (+smuggling, -loyalty) |
-| **Skills** | Improved over time | Navigation (+5% speed), Combat (+10% defense), Trade (+5% negotiation), Leadership (+crew morale) |
-| **Loyalty** | 0–100 | Low loyalty = mutiny risk, defection to rivals, embezzlement |
-| **Courage** | Flee vs. fight in storms/piracy | Cowardly captains abandon cargo |
-| **Backstory** | Flavor + hidden events | "Former navy officer" — better combat, expensive. "Smuggler" — knows hidden ports. |
-| **Relationships** | With other captains, rivals | Rivals poach your captains. Captains have friends/rivals in your fleet. |
-| **Death** | Permanent | Captains can die in storms, combat, disease. Memorial in headquarters. |
+#### Captain Attributes (v1 — MVP)
 
-#### Captain Archetypes
+| Attribute | MVP | Post-Launch (v2) |
+|-----------|-----|------------------|
+| **Name** | ✅ Generated or player-named | — |
+| **Portrait** | ✅ Procedural | More customization |
+| **Personality** | ✅ Basic (Cautious/Aggressive/Charismatic/Greedy) | Full traits + hidden agendas |
+| **Skills** | ✅ Navigation, Combat, Trade, Leadership (0–5) | 0–10 with specializations |
+| **Loyalty** | ✅ 0–100, affects mutiny risk | Betrayal story arcs, rival poaching events |
+| **Courage** | ✅ Flee vs. fight | PTSD, trauma events |
+| **Backstory** | ✅ Flavor text | Unlockable hidden events |
+| **Relationships** | ❌ Not in MVP | Captain friendships, rivalries, romances (v2) |
+| **Death** | ✅ Yes, permanent | Memorials, succession crises (v2) |
 
-| Archetype | Strength | Weakness | Quote |
-|-----------|----------|----------|-------|
-| **The Old Salt** | Navigation, weather prediction | Slow to adapt, expensive | "I've sailed these waters since before you were born." |
-| **The Daredevil** | Speed, storm survival | Reckless, damages ships | "Fortune favors the bold!" |
-| **The Smuggler** | Hidden routes, black market | Criminal record, caught = prison | "I know a place they don't check." |
-| **The Noble** | Reputation, negotiation | Expensive, refuses dirty deals | "My word is my bond." |
-| **The Survivor** | Repair, emergency handling | Traumatized, panics in combat | "I've been through worse. Much worse." |
-| **The Scientist** | Weather data, route optimization | Book-smart, bad with crew | "The mathematics don't lie." |
+**v1 Captain = Identity + Skills + Basic Personality.**
+**v2 Captain = Full character arc with relationships, trauma, and story events.**
 
-#### Crew System
+#### Captain Archetypes (v1 — MVP)
+
+v1 has 6 archetypes with strengths/weaknesses. v2 adds:
+- Relationship webs (captains know each other)
+- Trauma tracking (Survivor archetype has flashbacks)
+- Hidden agendas (Smuggler might embezzle)
+- Succession (dead captain's protégé takes over)
+
+#### Crew System (v1 — MVP)
 
 - Crew has **morale** (affected by pay, conditions, captain, storms)
 - Low morale → mutiny, desertion, sabotage
 - Crew can gain **experience** → better ship handling
 - Special crew: navigator, doctor, cook, marine, engineer
 
-
-#### Captain Events
-
-| Event | Trigger | Consequence |
-|-------|---------|-------------|
-| **Mutiny** | Low morale + cowardly captain | Ship seized, captain marooned |
-| **Betrayal** | Low loyalty + rival offer | Captain defects with ship |
-| **Heroism** | Storm survival + courageous captain | +Reputation, captain promoted |
-| **Scandal** | Smuggling caught + noble captain | Captain resigns in shame |
-| **Rivalry** | Two captains hate each other | -Morale if on same fleet. Must separate. |
-| **Romance** | Two captains fall in love | +Morale if together, -Morale if separated |
-| **Death** | Storm, combat, disease | Memorial, replacement needed, potential succession crisis |
+**v2 adds:** Crew individual names, personal histories, injury recovery arcs.
 
 ---
 
-### Rivals: Characters, Not Stats
+### Rivals: Characters, Not Stats — MVP (v1)
 
-**"Aggressive expander" is a spreadsheet. "Captain Blackwood who sank my first ship and laughed about it in the Port Royal tavern" is a story.**
+**"Aggressive expander" is a spreadsheet. "Captain Blackwood" is a story.**
 
-#### Rival System
+**MVP Scope (Phase 4):** Named opponents with personality. Revenge arcs and deep history come post-launch.
 
-| Feature | Description |
-|---------|-------------|
-| **Named Rivals** | 3–7 AI opponents per game, each with a name, portrait, personality, and backstory |
-| **Personal History** | Rivals remember your interactions: trades blocked, ships sunk, ports stolen |
-| **Arcs** | Rivals evolve: start weak, grow, form alliances, make enemies, rise and fall |
-| **Revenge** | If you bankrupt a rival, their *successor* may hunt you years later |
-| **Diplomacy** | Trade with rivals, form cartels, or wage price wars |
+#### Rival System (v1 — MVP)
+
+| Feature | MVP (v1) | Post-Launch (v2) |
+|---------|----------|------------------|
+| **Named Rivals** | ✅ 3–7 AI opponents with names | Deeper backstories |
+| **Personality** | ✅ Archetype (Bully/Shadow/Aristocrat/Pirate King/Visionary/Survivor) | Evolving traits |
+| **Basic History** | ✅ Remembers trades blocked | Full relationship tracking |
+| **Revenge** | ❌ Not in MVP | Successor hunts you (v2) |
+| **Arcs** | ❌ Static difficulty | Evolve: weak → strong → fall |
+| **Diplomacy** | ✅ Trade, cartels, price wars | Complex alliance webs |
+| **Duel System** | ✅ Race, bet, combat | honor/reputation mechanics |
+
+**v1 Rival = Named opponent with personality + basic memory.**
+**v2 Rival = Living character with evolving story, grudges, and revenge.**
 | **Duel System** | Challenge rival to race, bet, or naval combat (historical modes) |
 
 #### Rival Archetypes
@@ -709,6 +701,39 @@ These are VIEW MODES within the primary style, not separate art pipelines:
 | **CLIWOC** | 1750–1850 | Statistical weather distributions (sparse — samples, not forecasts) |
 | **East India Company Records** | 1600–1850 | Trade routes, prices |
 | **Historical GIS** | Various | Port development over time |
+
+---
+
+### 11.6 Pre-Industrial Sources (Global Historical Expeditions) — Expansion Pack
+
+**Status:** ⚠️ **DATA SPARSE** — Recommended as post-launch expansion pack, not core Phase 4
+
+**Rationale:**
+- Pre-industrial maritime data (B.C.–1600) is extremely sparse compared to Age of Sail (1650+)
+- CLIWOC dataset: ~280,000 ship logs over 100 years for entire globe = statistical distributions, not deterministic forecasts
+- No reliable commodity price data before ~1600
+- Ship specifications for Viking longships, Chinese junks, Polynesian canoes are archaeological reconstructions, not technical documentation
+- Port data for ancient trade routes requires historical research partnerships
+
+**Available Data:**
+
+| Source | Era | Data Quality | Limitations |
+|--------|-----|--------------|-------------|
+| **CLIWOC** | 1750–1850 | Good for Age of Sail | Too late for Global Historical (B.C.–1600) |
+| **Archaeological records** | B.C.–1600 | Fragmentary | Ship reconstructions, port locations, but no economic data |
+| **Historical accounts** | Various | Narrative only | Ibn Battuta, Marco Polo — descriptive, not quantitative |
+| **Academic research** | B.C.–1600 | Requires partnership | Would need 6+ months collaboration with maritime historians |
+
+**Recommendation:**
+- **Core Game (Phases 1–7):** Modern, Age of Sail, Steam Era only
+- **Post-Launch Expansion:** "Argosy Tides: Ancient Routes" — Viking, Chinese treasure fleets, Polynesian navigation
+- **Content:** Could ship with simplified mechanics, archetypal rather than historically accurate data
+- **Alternative:** Community-made mod using available research (academic crowdsourcing)
+
+**Expansion Pack Scope:**
+- Reduced fidelity acceptable (e.g., "Viking ship" archetype vs. historically specific Knarr)
+- Procedural generation for sparse data (weather patterns, trade volumes)
+- Academic partnership for v1.0 of expansion (not core game)
 
 ---
 
