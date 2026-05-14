@@ -48,6 +48,9 @@ venv/
 # IDE
 .idea/
 .vscode/
+
+# Environment variables
+.env
 *.swp
 *.swo
 *~

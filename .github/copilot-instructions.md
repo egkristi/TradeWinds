@@ -109,6 +109,11 @@ Avoid:
 2. **Use UPROPERTY()** for garbage collection
 3. **Rust needs Visual Studio C++ tools** for MSVC linker
 4. **Git LFS** for binary assets (`.uasset`, `.umap`)
+5. **GitHub CLI authentication** - Use `GITHUB_PAT_TOKEN` from `.env` file:
+   ```powershell
+   $env:GH_TOKEN = $env:GITHUB_PAT_TOKEN
+   gh auth status
+   ```
 
 ## When in Doubt
 

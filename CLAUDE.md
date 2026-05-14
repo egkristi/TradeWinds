@@ -141,6 +141,11 @@ cargo build --release
 1. **Visual Studio required** for C++ compilation and Rust MSVC linker
 2. **Git LFS** needed for binary assets
 3. **Hot reload** sometimes fails - full compile recommended
+4. **GitHub CLI authentication** - Use `GITHUB_PAT_TOKEN` from `.env` file:
+   ```powershell
+   $env:GH_TOKEN = $env:GITHUB_PAT_TOKEN
+   gh auth status
+   ```
 
 ## When Modifying Code
 

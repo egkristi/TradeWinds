@@ -410,6 +410,15 @@ git lfs pull
 - Restart Unreal Editor
 - Check for compilation errors in Output Log
 
+### 6. GitHub CLI Authentication
+**Problem:** Cannot access GitHub repository information  
+**Solution:**
+```powershell
+# Set token from .env file
+$env:GH_TOKEN = $env:GITHUB_PAT_TOKEN
+gh auth status
+```
+
 ---
 
 ## 📚 Documentation References
