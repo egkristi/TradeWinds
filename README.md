@@ -167,9 +167,9 @@ See [API_INTEGRATION.md](docs/API_INTEGRATION.md) for complete list and license 
 
 ## Community
 
-- 💬 [Discord](https://discord.gg/tradewinds) *(coming soon)*
-- 🐦 [@TradeWindsGame](https://x.com/TradeWindsGame) *(coming soon)*
-- 🎮 [Steam](https://store.steampowered.com) *(coming soon)*
+- 💬 Discord — planned (no link until live)
+- 🐦 X/Twitter — planned (no link until live)
+- 🎮 Steam — planned (no link until live)
 
 ---
 

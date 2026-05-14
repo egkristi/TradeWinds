@@ -1,9 +1,54 @@
 # TradeWinds — Game Design Document (GDD)
 
-> **Version:** 1.0  
-> **Date:** 2026-05-14  
-> **Status:** Draft — awaiting GitHub repo creation  
-> **Jira:** MUNIN-70  
+> **Version:** 1.0 
+> **Date:** 2026-05-14 
+> **Status:** Draft — awaiting GitHub repo creation 
+> **Jira:** MUNIN-70 
+
+---
+
+## CRITICAL DECISIONS (Post-Claude Review)
+
+### Decision 1: Slave Trade — REMOVED ENTIRELY
+
+**Status:** ❌ EXCLUDED from all game modes
+
+**Rationale:**
+- Hobby project — not worth the reputational and ethical risk
+- Doing it "properly" requires 6+ months of historian collaboration
+- Anno 1800 deliberately avoided it
+- The toggle approach ("optional/historical accuracy") is the worst of all choices — it trivializes the subject
+
+**What remains:**
+- Age of Sail includes spices, tea, silk, sugar, rum, fur, timber, amber
+- Press gangs presented as **crew recruitment challenges** (legal but coercive navy practices)
+- Mutiny as **labor relations / morale management** — not slavery
+- No human trafficking as commodity, gameplay, or narrative element
+
+### Decision 2: Name Change — "TradeWinds" → TBD
+
+**Status:** ⚠️ URGENT — "TradeWinds" is a registered trademark
+
+**Evidence:**
+- Sandlot Games Corporation: "TRADEWINDS" (USPTO Serial #78424182, Reg #3101783)
+- Registered 2004, renewed 2016, active in video game category
+- Series includes: Tradewinds, Tradewinds Legends, Tradewinds Caravans, Tradewinds Odyssey
+- Still sold on Steam and GOG
+- Ubisoft also holds "TRADEWINDS CARAVANS" trademark
+
+**Action required:**
+- [ ] Erling proposes new name candidates
+- [ ] Munin checks trademark availability for top 3
+- [ ] Update all documents and repository
+
+**Proposed alternatives (unverified):**
+| Name | Rationale | Risk |
+|------|-----------|------|
+| **Starlode** | Stars + cargo, adventure feel | Likely available |
+| **Meridian** | Navigation, global reach | May be taken (Meridian: New World exists) |
+| **Keelson** | Core structural timber of a ship | Likely available |
+| **Chartwright** | Mapmaker + empire builder | Likely available |
+| **Amber Passage** | Historic Baltic amber route | Likely available |
 
 ---
 
@@ -38,19 +83,19 @@
 
 ```
 Main Menu
-    ├── New Game
-    │       ├── Select Era (Modern / Age of Sail / Steam Era / Custom)
-    │       ├── Select Map (World / Region / Custom)
-    │       ├── Select Visual Style (Top-Down / Isometric / Full 3D / Paper Map / Data Dashboard)
-    │       ├── Configure Difficulty & AI Opponents
-    │       └── Start
-    ├── Continue
-    ├── Multiplayer
-    │       ├── Host Game (Local / Online)
-    │       ├── Join Game (LAN / Server Browser)
-    │       └── Spectate
-    ├── Options
-    └── Mods / Workshop
+  ├── New Game
+  │    ├── Select Era (Modern / Age of Sail / Steam Era / Custom)
+  │    ├── Select Map (World / Region / Custom)
+  │    ├── Select Visual Style (Top-Down / Isometric / Full 3D / Paper Map / Data Dashboard)
+  │    ├── Configure Difficulty & AI Opponents
+  │    └── Start
+  ├── Continue
+  ├── Multiplayer
+  │    ├── Host Game (Local / Online)
+  │    ├── Join Game (LAN / Server Browser)
+  │    └── Spectate
+  ├── Options
+  └── Mods / Workshop
 ```
 
 ### 3.2 Core Loop
@@ -150,7 +195,7 @@ Every ship needs a captain. Captains are not interchangeable — they are *peopl
 - Low morale → mutiny, desertion, sabotage
 - Crew can gain **experience** → better ship handling
 - Special crew: navigator, doctor, cook, marine, engineer
-- Historical eras: slaves, indentured servants, press-ganged sailors (toggleable, with context)
+- Historical eras: indentured servants, press-ganged sailors (toggleable, with context)
 
 #### Captain Events
 
@@ -235,7 +280,7 @@ Every ship needs a captain. Captains are not interchangeable — they are *peopl
 
 - Scurvy, dysentery, plague
 - Quarantine ports: lose weeks, or risk spreading?
-- Historical: slave ships — moral choice with mechanical consequences
+
 
 ---
 
@@ -293,7 +338,7 @@ Every ship needs a captain. Captains are not interchangeable — they are *peopl
 - Clipper (very fast, luxury goods)
 - East Indiaman (huge cargo, armed)
 
-**Commodities:** Spices, tea, silk, sugar, rum, slaves (optional/historical accuracy toggle), fur, timber
+**Commodities:** Spices, tea, silk, sugar, rum, fur, timber, amber
 
 **Hazards:** Pirates, storms, scurvy, mutiny, shipwreck, naval press gangs
 
@@ -337,7 +382,7 @@ Pre-industrial maritime trade across all cultures. No gunpowder-era ships.
 | **Polynesian** | Double Canoe (Waka) | 500–1500 | Exploration, no compass |
 | **Polynesian** | Outrigger Canoe | 500–1500 | Island hopping, shallow draft |
 | **Mediterranean** | Carrack | 1300–1600 | Late Age of Sail precursor |
-| **Mediterranean** | Galley | 500–1500 | Rowed, coastal, slave-powered |
+| **Mediterranean** | Galley | 500–1500 | Rowed, coastal, human-powered |
 
 **Unique mechanics:**
 - **Viking:** Raid OR trade (dual economy), fjord navigation, seasonal sailing only
@@ -346,7 +391,7 @@ Pre-industrial maritime trade across all cultures. No gunpowder-era ships.
 - **Polynesian:** Celestial navigation (no compass), star charts, island discovery
 - **Mediterranean:** Galley combat (ramming), trireme fleets, amphora cargo
 
-**Commodities:** Amber, walrus ivory, silk, porcelain, spices, incense, obsidian, grain, wine, olive oil, salt, furs, slaves (toggleable/historical context)
+**Commodities:** Amber, walrus ivory, silk, porcelain, spices, incense, obsidian, grain, wine, olive oil, salt, furs (toggleable/historical context)
 
 **Routes:**
 - Baltic Sea amber route
@@ -604,7 +649,6 @@ Players can switch visual styles at any time (or lock per game):
 |--------|-----|------|
 | **CLIWOC** (Climatological Database for the World's Oceans) | 1750–1850 | Ship logs, weather |
 | **East India Company Records** | 1600–1850 | Trade routes, prices |
-| **Slave Voyages Database** | 1526–1866 | Routes (ethical handling) |
 | **Historical GIS** | Various | Port development over time |
 
 ---
@@ -645,32 +689,32 @@ Players can switch visual styles at any time (or lock per game):
 ```
 Main Menu
 ├── New Game Wizard
-│   ├── Era Selection (visual cards)
-│   ├── Map Selection (interactive globe)
-│   ├── Visual Style (live preview)
-│   ├── Difficulty (slider + presets)
-│   └── AI Configuration
+│  ├── Era Selection (visual cards)
+│  ├── Map Selection (interactive globe)
+│  ├── Visual Style (live preview)
+│  ├── Difficulty (slider + presets)
+│  └── AI Configuration
 ├── Port Screen
-│   ├── Market (buy/sell with sparklines)
-│   ├── Shipyard (3D model viewer)
-│   ├── Crew (cards with portraits)
-│   ├── Warehouse (inventory grid)
-│   └── Services (repair, insurance)
+│  ├── Market (buy/sell with sparklines)
+│  ├── Shipyard (3D model viewer)
+│  ├── Crew (cards with portraits)
+│  ├── Warehouse (inventory grid)
+│  └── Services (repair, insurance)
 ├── Navigation Screen
-│   ├── Map (zoomable, layers)
-│   ├── Route Planner (drag handles)
-│   ├── Weather Overlay (animated)
-│   └── Fleet Status (ship cards)
+│  ├── Map (zoomable, layers)
+│  ├── Route Planner (drag handles)
+│  ├── Weather Overlay (animated)
+│  └── Fleet Status (ship cards)
 ├── Finance Screen
-│   ├── Balance Sheet
-│   ├── Profit/Loss History
-│   ├── Stock Price (if publicly traded)
-│   └── Loans & Insurance
+│  ├── Balance Sheet
+│  ├── Profit/Loss History
+│  ├── Stock Price (if publicly traded)
+│  └── Loans & Insurance
 └── Encyclopedia
-    ├── Ports (real-world data)
-    ├── Ships (historical specs)
-    ├── Commodities (price history)
-    └── Events (timeline)
+  ├── Ports (real-world data)
+  ├── Ships (historical specs)
+  ├── Commodities (price history)
+  └── Events (timeline)
 ```
 
 ### 13.2 Key UI Principles
@@ -771,5 +815,5 @@ Main Menu
 
 ---
 
-*Document owner: Munin 🐦‍⬛*  
+*Document owner: Munin 🐦‍⬛* 
 *Next review: After MVP scope definition*

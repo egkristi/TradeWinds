@@ -248,15 +248,9 @@ Many port authorities publish:
 **Cost:** FREE  
 **License:** Open data
 
-### 5.2 Slave Voyages Database
+### 5.2 Historical Data (Excluding Slave Trade)
 
-**Source:** `https://www.slavevoyages.org/`  
-**Data:** 36,000+ trans-Atlantic slave voyages (1526–1866)  
-**Update:** Static  
-**Use:** Historical routes (ethical handling required)  
-**Cost:** FREE  
-**License:** CC BY-NC 4.0  
-**Note:** Include historical accuracy toggle + educational context
+**Note:** The game deliberately excludes the transatlantic slave trade. While historically significant, it is not appropriate as a gameplay element in a hobby project.
 
 ### 5.3 East India Company Records
 
