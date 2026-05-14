@@ -153,6 +153,10 @@ cargo run -- build-all
 - **No Visual Assets Yet** - Placeholder geometry only
 - **CI/CD Not Tested** - Workflows configured but not validated
 
+### ✅ Resolved Blockers
+- **Visual Studio 2022** - Installed and verified (v17.14.32)
+- **Rust MSVC Linker** - Working with VS C++ tools
+
 See [Issues](https://github.com/egkristi/ArgosyTides/issues) for current blockers and planned work.
 
 ---
