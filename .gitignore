@@ -1,0 +1,58 @@
+# UnrealEngine
+DerivedDataCache/
+Saved/
+Binaries/
+Intermediate/
+Build/
+*.VC.db
+*.VC.VC.opendb
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.csproj.user
+
+# Build
+*.exe
+*.dll
+*.lib
+*.pdb
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Data cache
+Content/DataCache/
+
+# Rust
+Tools/**/target/
+**/Cargo.lock
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+*.egg-info/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Testing
+TestResults/
+*.coverage
+htmlcov/

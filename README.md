@@ -57,14 +57,16 @@
 
 ### Prerequisites
 - Unreal Engine 5.4+
-- Visual Studio 2022 or JetBrains Rider
+- Visual Studio 2022 with C++ workload
 - Rust 1.78+ (for data pipeline tools)
 - Python 3.11+ (for prototyping and one-off scripts)
 - Git LFS
 
-### Build
+### Setup
 
-```bash
+**Windows:**
+
+```powershell
 # Clone the repo
 git clone https://github.com/egkristi/ArgosyTides.git
 cd ArgosyTides
@@ -73,17 +75,48 @@ cd ArgosyTides
 git lfs install
 git lfs pull
 
-# Build the project
-# Windows:
-ArgosyTides.uproject  # Opens in Unreal Editor
+# Run setup script
+.\setup.bat
+```
 
-# Or command line:
-# UE5\Engine\Build\BatchFiles\Build.bat ArgosyTidesEditor Win64 Development
+See [`SETUP.md`](SETUP.md) for detailed installation instructions.
+
+### Build
+
+**Option 1: Unreal Editor (Recommended)**
+
+```powershell
+# Double-click to open in Unreal Editor
+ArgosyTides.uproject
+```
+
+**Option 2: Command Line**
+
+```powershell
+# Run build script
+.\build.bat
+
+# Or manually:
+& "C:\Program Files\Epic Games\UE_5.4\Engine\Build\BatchFiles\Build.bat" `
+  ArgosyTidesEditor Win64 Development `
+  -project="ArgosyTides.uproject" -log -wait
 ```
 
 ### Run
 
 Open `ArgosyTides.uproject` in Unreal Editor and click Play.
+
+### Build Data Pipeline (Optional)
+
+```powershell
+cd Tools\DataPipeline
+cargo build --release
+
+# Run the pipeline
+cargo run -- build-all
+```
+
+> **Note:** Building the Rust data pipeline requires Visual Studio C++ tools.
 
 ---
 

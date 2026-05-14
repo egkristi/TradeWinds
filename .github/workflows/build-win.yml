@@ -1,0 +1,44 @@
+name: Build Windows
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  PROJECT_NAME: ArgosyTides
+  BUILD_CONFIG: Development
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        lfs: true
+    
+    - name: Setup Git LFS
+      run: git lfs pull
+    
+    - name: Setup Unreal Engine
+      uses: ephes/ue5-action@v1
+      with:
+        engine-version: '5.4'
+    
+    - name: Build Project
+      run: |
+        $UE5_PATH = "C:\Program Files\Epic Games\UE_5.4\Engine\Build\BatchFiles"
+        & "$UE5_PATH\Build.bat" $env:PROJECT_NAME Win64 $env:BUILD_CONFIG -project="${{ github.workspace }}\$env:PROJECT_NAME.uproject" -log -wait
+      shell: pwsh
+    
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ArgosyTides-Windows-Build
+        path: |
+          Binaries/Win64/
+          Content/
+        retention-days: 7

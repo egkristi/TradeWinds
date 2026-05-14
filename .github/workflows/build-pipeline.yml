@@ -1,0 +1,48 @@
+name: Build Data Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'Tools/DataPipeline/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'Tools/DataPipeline/**'
+
+jobs:
+  build-pipeline:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Setup Rust
+      uses: dtolnay/rust-action@v1
+      with:
+        toolchain: stable
+    
+    - name: Cache Cargo
+      uses: Swatinem/rust-cache@v2
+      with:
+        workspaces: Tools/DataPipeline
+    
+    - name: Build Data Pipeline
+      run: |
+        cd Tools/DataPipeline
+        cargo build --release
+      shell: pwsh
+    
+    - name: Run Tests
+      run: |
+        cd Tools/DataPipeline
+        cargo test
+      shell: pwsh
+    
+    - name: Upload Binary
+      uses: actions/upload-artifact@v4
+      with:
+        name: DataPipeline-Windows
+        path: Tools/DataPipeline/target/release/data_pipeline.exe
+        retention-days: 7

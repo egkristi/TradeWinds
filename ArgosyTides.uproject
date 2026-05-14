@@ -1,0 +1,22 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "5.4",
+	"Category": "Games",
+	"ProjectDescription": "Argosy Tides - Maritime Trading Simulation",
+	"LastSavedBy": "willm",
+	"Modules": [
+		{
+			"Name": "ArgosyTides",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine",
+				"Core",
+				"CoreUObject",
+				"Slate",
+				"SlateCore",
+				"UMG"
+			]
+		}
+	]
+}
