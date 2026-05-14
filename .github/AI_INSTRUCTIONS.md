@@ -418,6 +418,7 @@ git lfs pull
 $env:GH_TOKEN = $env:GITHUB_PAT_TOKEN
 gh auth status
 ```
+- Ensure `.env` is ignored in Git and never committed to the repository.
 
 ---
 

@@ -146,6 +146,7 @@ cargo build --release
    $env:GH_TOKEN = $env:GITHUB_PAT_TOKEN
    gh auth status
    ```
+   Ensure `.env` is ignored by Git and not committed to the repository.
 
 ## When Modifying Code
 

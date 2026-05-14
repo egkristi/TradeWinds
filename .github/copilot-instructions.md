@@ -113,8 +113,7 @@ Avoid:
    ```powershell
    $env:GH_TOKEN = $env:GITHUB_PAT_TOKEN
    gh auth status
-   ```
-
+   ```   Ensure `.env` is ignored by Git and not committed to the repository.
 ## When in Doubt
 
 1. Check existing code patterns in `Source/ArgosyTides/`
