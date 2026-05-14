@@ -24,7 +24,7 @@ jobs:
       run: git lfs pull
     
     - name: Setup Unreal Engine
-      uses: ephes/ue5-action@v1
+      uses: adamrehn/ue5-action@v1
       with:
         engine-version: '5.4'
     

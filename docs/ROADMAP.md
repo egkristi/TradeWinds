@@ -95,7 +95,7 @@ Phase 0 ──→ Phase 1 ──→ Phase 2 ──→ Phase 3 ──→ Phase 4 
 
 ### Outstanding Blockers
 - ⏳ Unreal Engine 5.4 installation required for project launch
-- ⏳ CI/CD workflows not yet validated (no runs triggered)
+- ⏳ CI/CD workflows not yet validated (first runs failed due to invalid action references)
 
 ### ✅ Resolved Blockers
 - ✅ Visual Studio 2022 Community installed (v17.14.32)

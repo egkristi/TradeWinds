@@ -6,6 +6,8 @@
 [![GitHub](https://img.shields.io/github/license/egkristi/ArgosyTides)](LICENSE)
 [![GitHub Issues](https://img.shields.io/github/issues/egkristi/ArgosyTides)](https://github.com/egkristi/ArgosyTides/issues)
 [![GitHub Stars](https://img.shields.io/github/stars/egkristi/ArgosyTides)](https://github.com/egkristi/ArgosyTides/stargazers)
+[![Build Windows](https://github.com/egkristi/ArgosyTides/actions/workflows/build-win.yml/badge.svg)](https://github.com/egkristi/ArgosyTides/actions/workflows/build-win.yml)
+[![Build Pipeline](https://github.com/egkristi/ArgosyTides/actions/workflows/build-pipeline.yml/badge.svg)](https://github.com/egkristi/ArgosyTides/actions/workflows/build-pipeline.yml)
 
 **Status:** Phase 0 Complete - Foundation Ready  
 **Next Phase:** Phase 1 (MVP) - One port, one ship, one commodity  
@@ -151,7 +153,7 @@ cargo run -- build-all
 ### ⚠️ Known Blockers
 - **Unreal Engine 5.4 Required** - Install via Epic Games Launcher
 - **No Visual Assets Yet** - Placeholder geometry only
-- **CI/CD Not Tested** - Workflows configured but not validated
+- **CI/CD Not Tested** - Workflows configured but not validated; first runs failed due to invalid action references
 
 ### ✅ Resolved Blockers
 - **Visual Studio 2022** - Installed and verified (v17.14.32)
