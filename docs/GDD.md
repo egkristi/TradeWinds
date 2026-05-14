@@ -54,6 +54,9 @@
 
 ## 1. Executive Summary
 
+> *"Your mind is tossing on the ocean; There, where your argosies with portly sail, Like signiors and rich burghers on the flood... Do overpeer the petty traffickers..."*  
+> — *The Merchant of Venice*, Shakespeare
+
 **Argosy Tides** is a maritime trading simulation game where players buy ships, trade commodities between ports, manage finances, and build a shipping empire. The game spans historical and modern eras with real-world data powering the economy, ports, ships, and routes.
 
 **Core loop:** Buy ship → Load cargo → Sail route → Sell for profit → Upgrade fleet → Expand empire.

@@ -1,6 +1,7 @@
 # Argosy Tides 🌊
 
-> A maritime trading simulation game built with Unreal Engine 5.
+> *"Your mind is tossing on the ocean; There, where your argosies with portly sail, Like signiors and rich burghers on the flood... Do overpeer the petty traffickers..."*  
+> — *The Merchant of Venice*, Shakespeare
 
 **Argosy Tides** is a deep, data-driven trading simulation where you build a shipping empire across eras. Buy ships, trade commodities, navigate real weather, and outsmart competitors in a living global economy powered by real-world data.
 
