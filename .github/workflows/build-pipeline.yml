@@ -9,6 +9,7 @@ on:
     branches: [ main ]
     paths:
       - 'Tools/DataPipeline/**'
+  workflow_dispatch:
 
 jobs:
   build-pipeline:
