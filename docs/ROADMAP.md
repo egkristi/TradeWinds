@@ -1,4 +1,4 @@
-# TradeWinds — Implementation Roadmap
+# Argosy Tides — Implementation Roadmap
 
 > **Version:** 1.0  
 > **Date:** 2026-05-14  
@@ -29,7 +29,7 @@ Phased development approach: MVP first, then iterate. Each phase is a vertical s
 ## Phase 0: Foundation (Week 1)
 
 ### 0.1 Repository Setup
-- [ ] Create GitHub repo: `github.com/egkristi/TradeWinds`
+- [ ] Create GitHub repo: `github.com/egkristi/Argosy Tides`
 - [ ] Set up branch protection, issue templates
 - [ ] Configure Git LFS for assets
 - [ ] Set up project board (GitHub Projects or Jira integration)
@@ -330,29 +330,29 @@ Phased development approach: MVP first, then iterate. Each phase is a vertical s
 
 | Jira Key | Summary | Phase | Status |
 |----------|---------|-------|--------|
-| MUNIN-70 | TradeWinds: Project setup + GDD | 0 | In Progress |
-| MUNIN-71 | TradeWinds: UE5 project initialization | 0 | TODO |
-| MUNIN-72 | TradeWinds: CI/CD pipeline | 0 | TODO |
-| MUNIN-73 | TradeWinds: Core game systems (MVP) | 1 | TODO |
-| MUNIN-74 | TradeWinds: Market simulation | 1 | TODO |
-| MUNIN-75 | TradeWinds: Ship system | 1 | TODO |
-| MUNIN-76 | TradeWinds: Port system | 1 | TODO |
-| MUNIN-77 | TradeWinds: Basic UI | 1 | TODO |
-| MUNIN-78 | TradeWinds: Data pipeline | 2 | TODO |
-| MUNIN-79 | TradeWinds: Weather system | 2 | TODO |
-| MUNIN-80 | TradeWinds: Advanced trading | 2 | TODO |
-| MUNIN-81 | TradeWinds: Visual styles | 3 | TODO |
-| MUNIN-82 | TradeWinds: Ship/port 3D models | 3 | TODO |
-| MUNIN-83 | TradeWinds: Audio | 3 | TODO |
-| MUNIN-84 | TradeWinds: Age of Sail mode | 4 | TODO |
-| MUNIN-85 | TradeWinds: Steam Era mode | 4 | TODO |
-| MUNIN-86 | TradeWinds: Local multiplayer | 5 | TODO |
-| MUNIN-87 | TradeWinds: Online multiplayer | 5 | TODO |
-| MUNIN-88 | TradeWinds: AI opponents | 6 | TODO |
-| MUNIN-89 | TradeWinds: Balance tuning | 6 | TODO |
-| MUNIN-90 | TradeWinds: Modding support | 7 | TODO |
-| MUNIN-91 | TradeWinds: Scenario editor | 7 | TODO |
-| MUNIN-92 | TradeWinds: Release prep | 8 | TODO |
+| MUNIN-70 | Argosy Tides: Project setup + GDD | 0 | In Progress |
+| MUNIN-71 | Argosy Tides: UE5 project initialization | 0 | TODO |
+| MUNIN-72 | Argosy Tides: CI/CD pipeline | 0 | TODO |
+| MUNIN-73 | Argosy Tides: Core game systems (MVP) | 1 | TODO |
+| MUNIN-74 | Argosy Tides: Market simulation | 1 | TODO |
+| MUNIN-75 | Argosy Tides: Ship system | 1 | TODO |
+| MUNIN-76 | Argosy Tides: Port system | 1 | TODO |
+| MUNIN-77 | Argosy Tides: Basic UI | 1 | TODO |
+| MUNIN-78 | Argosy Tides: Data pipeline | 2 | TODO |
+| MUNIN-79 | Argosy Tides: Weather system | 2 | TODO |
+| MUNIN-80 | Argosy Tides: Advanced trading | 2 | TODO |
+| MUNIN-81 | Argosy Tides: Visual styles | 3 | TODO |
+| MUNIN-82 | Argosy Tides: Ship/port 3D models | 3 | TODO |
+| MUNIN-83 | Argosy Tides: Audio | 3 | TODO |
+| MUNIN-84 | Argosy Tides: Age of Sail mode | 4 | TODO |
+| MUNIN-85 | Argosy Tides: Steam Era mode | 4 | TODO |
+| MUNIN-86 | Argosy Tides: Local multiplayer | 5 | TODO |
+| MUNIN-87 | Argosy Tides: Online multiplayer | 5 | TODO |
+| MUNIN-88 | Argosy Tides: AI opponents | 6 | TODO |
+| MUNIN-89 | Argosy Tides: Balance tuning | 6 | TODO |
+| MUNIN-90 | Argosy Tides: Modding support | 7 | TODO |
+| MUNIN-91 | Argosy Tides: Scenario editor | 7 | TODO |
+| MUNIN-92 | Argosy Tides: Release prep | 8 | TODO |
 
 ---
 
@@ -361,7 +361,7 @@ Phased development approach: MVP first, then iterate. Each phase is a vertical s
 
 ## Project Tracking Convention (2026-05-14)
 
-**TradeWinds tracking:**
+**Argosy Tides tracking:**
 - **GitHub Issues** — Primary: bugs, features, plans, discussion, implementation tasks
 - **GitHub Projects** — Sprint/phase planning
 - **Jira (MUNIN-70)** — High-level umbrella only; all detail in GitHub Issues

@@ -1,4 +1,4 @@
-# TradeWinds — Game Design Document (GDD)
+# Argosy Tides — Game Design Document (GDD)
 
 > **Version:** 1.0 
 > **Date:** 2026-05-14 
@@ -25,16 +25,16 @@
 - Mutiny as **labor relations / morale management** — not slavery
 - No human trafficking as commodity, gameplay, or narrative element
 
-### Decision 2: Name Change — "TradeWinds" → TBD
+### Decision 2: Name Change — "Argosy Tides" → TBD
 
-**Status:** ⚠️ URGENT — "TradeWinds" is a registered trademark
+**Status:** ⚠️ URGENT — "Argosy Tides" is a registered trademark
 
 **Evidence:**
-- Sandlot Games Corporation: "TRADEWINDS" (USPTO Serial #78424182, Reg #3101783)
+- Sandlot Games Corporation: "ARGOSY TIDES" (USPTO Serial #78424182, Reg #3101783)
 - Registered 2004, renewed 2016, active in video game category
 - Series includes: Tradewinds, Tradewinds Legends, Tradewinds Caravans, Tradewinds Odyssey
 - Still sold on Steam and GOG
-- Ubisoft also holds "TRADEWINDS CARAVANS" trademark
+- Ubisoft also holds "ARGOSY TIDES CARAVANS" trademark
 
 **Action required:**
 - [ ] Erling proposes new name candidates
@@ -54,7 +54,7 @@
 
 ## 1. Executive Summary
 
-**TradeWinds** is a maritime trading simulation game where players buy ships, trade commodities between ports, manage finances, and build a shipping empire. The game spans historical and modern eras with real-world data powering the economy, ports, ships, and routes.
+**Argosy Tides** is a maritime trading simulation game where players buy ships, trade commodities between ports, manage finances, and build a shipping empire. The game spans historical and modern eras with real-world data powering the economy, ports, ships, and routes.
 
 **Core loop:** Buy ship → Load cargo → Sail route → Sell for profit → Upgrade fleet → Expand empire.
 
@@ -66,7 +66,7 @@
 
 | Attribute | Detail |
 |-----------|--------|
-| **Name** | TradeWinds |
+| **Name** | Argosy Tides |
 | **Genre** | Maritime Trading Simulation / Tycoon |
 | **Platforms** | PC (Windows, macOS, Linux) |
 | **Engine** | Unreal Engine 5.4+ |
@@ -121,17 +121,17 @@ Main Menu
 
 ## 3.4 Player Fantasy & Emotional Core
 
-### Why TradeWinds?
+### Why Argosy Tides?
 
 > *"Real-world data is a premise, not a hook. People don't buy games because prices are real — they buy because it's fun to build something."*
 
-TradeWinds is not a spreadsheet with ships. It's a **story generator** where *you* are the protagonist building a legacy. Every voyage writes a chapter. Every storm, betrayal, and triumph becomes a story you tell.
+Argosy Tides is not a spreadsheet with ships. It's a **story generator** where *you* are the protagonist building a legacy. Every voyage writes a chapter. Every storm, betrayal, and triumph becomes a story you tell.
 
 ---
 
 ### The Fantasy: "I am building a shipping empire with my name on it"
 
-| Emotion | How TradeWinds Delivers |
+| Emotion | How Argosy Tides Delivers |
 |---------|------------------------|
 | **Pride** | Named fleet, company reputation, trophies in headquarters |
 | **Attachment** | Captains with personalities who grow, die, or betray |
@@ -676,7 +676,7 @@ Players can switch visual styles at any time (or lock per game):
 
 ### 12.3 IP Protection
 
-- Trademark "TradeWinds" in relevant classes (USPTO, EUIPO, WIPO)
+- Trademark "Argosy Tides" in relevant classes (USPTO, EUIPO, WIPO)
 - Code obfuscation for release builds
 - Steam/EGS DRM optional (hobby phase: DRM-free)
 

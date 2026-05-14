@@ -1,4 +1,4 @@
-# TradeWinds — Technical Architecture Document (TAD)
+# Argosy Tides — Technical Architecture Document (TAD)
 
 > **Version:** 1.0  
 > **Date:** 2026-05-14  
@@ -29,7 +29,7 @@
 ## 2. Project Structure
 
 ```
-TradeWinds/
+Argosy Tides/
 ├── .github/
 │   └── workflows/
 │       ├── build-win.yml
@@ -61,8 +61,8 @@ TradeWinds/
 │       ├── Commodities.csv
 │       └── Events.csv
 ├── Source/
-│   ├── TradeWinds/
-│   │   ├── TradeWinds.Build.cs
+│   ├── Argosy Tides/
+│   │   ├── Argosy Tides.Build.cs
 │   │   ├── Core/
 │   │   │   ├── GameInstance.h/cpp
 │   │   │   ├── SaveGame.h/cpp
@@ -106,7 +106,7 @@ TradeWinds/
 │   │       ├── PortScreen.h/cpp
 │   │       ├── NavigationScreen.h/cpp
 │   │       └── HUD.h/cpp
-│   └── TradeWinds.Target.cs
+│   └── Argosy Tides.Target.cs
 ├── Tools/
 │   ├── DataPipeline/ (Rust crate)
 │   │   ├── Cargo.toml
@@ -141,7 +141,7 @@ TradeWinds/
 ├── .gitignore
 ├── LICENSE
 ├── README.md
-└── TradeWinds.uproject
+└── Argosy Tides.uproject
 ```
 
 ---
@@ -151,8 +151,8 @@ TradeWinds/
 ### 3.1 Game Instance & State Management
 
 ```cpp
-// TradeWindsGameInstance
-class UTradeWindsGameInstance : public UGameInstance {
+// Argosy TidesGameInstance
+class UArgosy TidesGameInstance : public UGameInstance {
     UPROPERTY()
     UMarketData* MarketData;
     
@@ -769,7 +769,7 @@ pub fn update_game_data() -> Result<(), FetchError> {
 
 ```cpp
 UCLASS()
-class UTradeWindsSaveGame : public USaveGame {
+class UArgosy TidesSaveGame : public USaveGame {
     UPROPERTY()
     FString SaveVersion;  // For migration
     
@@ -897,7 +897,7 @@ CREATE TABLE event_history (
 
 ```yaml
 # .github/workflows/build.yml
-name: Build TradeWinds
+name: Build Argosy Tides
 on: [push, pull_request]
 jobs:
   build:
@@ -909,9 +909,9 @@ jobs:
       - name: Setup UE5
         uses: setup-unreal-engine@v1
       - name: Build
-        run: ue5-build --target=TradeWinds --config=Shipping
+        run: ue5-build --target=Argosy Tides --config=Shipping
       - name: Test
-        run: ue5-test --project=TradeWinds
+        run: ue5-test --project=Argosy Tides
       - name: Package
         run: ue5-package --platform=${{ matrix.os }}
 ```
@@ -1026,7 +1026,7 @@ end
 ```cpp
 // Exposed to Blueprint — for behavior mods that need game logic access
 UCLASS()
-class UTradeWindsModAPI : public UObject {
+class UArgosy TidesModAPI : public UObject {
     UFUNCTION(BlueprintCallable, Category="Modding")
     static void RegisterShipClass(FShipClassConfig Config);
     

@@ -1,4 +1,4 @@
-# TradeWinds — Real-World Data Integration Guide
+# Argosy Tides — Real-World Data Integration Guide
 
 > **Version:** 1.0  > **Date:** 2026-05-14  
 > **Jira:** MUNIN-70  
@@ -7,7 +7,7 @@
 
 ## Overview
 
-TradeWinds uses real-world data as a **calibration layer and narrative flavour**, not as direct gameplay input. This document describes all data sources, their APIs, update frequencies, and integration strategies.
+Argosy Tides uses real-world data as a **calibration layer and narrative flavour**, not as direct gameplay input. This document describes all data sources, their APIs, update frequencies, and integration strategies.
 
 ### Critical Design Decision: Real Data vs. Game Data
 
@@ -380,7 +380,7 @@ RATE_LIMITS = {
 
 ### 8.2 Data Sources — Final Recommendations (Revised)
 
-After evaluating cost, licensing, and gameplay impact, here are the **viable data sources** for TradeWinds:
+After evaluating cost, licensing, and gameplay impact, here are the **viable data sources** for Argosy Tides:
 
 #### Tier 1: Always Included (Free, Unrestricted, Sufficient)
 

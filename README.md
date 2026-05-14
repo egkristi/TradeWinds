@@ -1,8 +1,8 @@
-# TradeWinds 🌊
+# Argosy Tides 🌊
 
 > A maritime trading simulation game built with Unreal Engine 5.
 
-**TradeWinds** is a deep, data-driven trading simulation where you build a shipping empire across eras. Buy ships, trade commodities, navigate real weather, and outsmart competitors in a living global economy powered by real-world data.
+**Argosy Tides** is a deep, data-driven trading simulation where you build a shipping empire across eras. Buy ships, trade commodities, navigate real weather, and outsmart competitors in a living global economy powered by real-world data.
 
 ---
 
@@ -63,8 +63,8 @@
 
 ```bash
 # Clone the repo
-git clone https://github.com/egkristi/TradeWinds.git
-cd TradeWinds
+git clone https://github.com/egkristi/Argosy Tides.git
+cd Argosy Tides
 
 # Initialize Git LFS
 git lfs install
@@ -72,15 +72,15 @@ git lfs pull
 
 # Build the project
 # Windows:
-TradeWinds.uproject  # Opens in Unreal Editor
+Argosy Tides.uproject  # Opens in Unreal Editor
 
 # Or command line:
-# UE5\Engine\Build\BatchFiles\Build.bat TradeWindsEditor Win64 Development
+# UE5\Engine\Build\BatchFiles\Build.bat Argosy TidesEditor Win64 Development
 ```
 
 ### Run
 
-Open `TradeWinds.uproject` in Unreal Editor and click Play.
+Open `Argosy Tides.uproject` in Unreal Editor and click Play.
 
 ---
 
@@ -150,7 +150,7 @@ See [GDD Section 12](docs/GDD.md#12-monetization--licensing) for full licensing 
 
 ## Data Attribution
 
-TradeWinds uses real-world data from these sources:
+Argosy Tides uses real-world data from these sources:
 
 - [World Bank](https://worldbank.org) — Commodity prices (CC BY 4.0)
 - [Open-Meteo](https://open-meteo.com) — Weather data (CC BY 4.0)
@@ -181,4 +181,4 @@ See [API_INTEGRATION.md](docs/API_INTEGRATION.md) for complete list and license 
 
 ---
 
-*Made with 🌊 by the TradeWinds team*
+*Made with 🌊 by the Argosy Tides team*
