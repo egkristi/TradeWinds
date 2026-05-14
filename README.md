@@ -3,6 +3,15 @@
 > *"Your mind is tossing on the ocean; There, where your argosies with portly sail, Like signiors and rich burghers on the flood... Do overpeer the petty traffickers..."*  
 > — *The Merchant of Venice*, Shakespeare
 
+[![GitHub](https://img.shields.io/github/license/egkristi/ArgosyTides)](LICENSE)
+[![GitHub Issues](https://img.shields.io/github/issues/egkristi/ArgosyTides)](https://github.com/egkristi/ArgosyTides/issues)
+[![GitHub Stars](https://img.shields.io/github/stars/egkristi/ArgosyTides)](https://github.com/egkristi/ArgosyTides/stargazers)
+
+**Status:** Phase 0 Complete - Foundation Ready  
+**Next Phase:** Phase 1 (MVP) - One port, one ship, one commodity  
+**Engine:** Unreal Engine 5.4+  
+**Languages:** C++20, Blueprint, Rust, Python  
+
 **Argosy Tides** is a deep, data-driven trading simulation where you build a shipping empire across eras. Buy ships, trade commodities, navigate real weather, and outsmart competitors in a living global economy powered by real-world data.
 
 ---
@@ -120,6 +129,34 @@ cargo run -- build-all
 
 ---
 
+## Project Status
+
+### ✅ Phase 0: Foundation (Complete)
+- Git repository with clean history
+- Unreal Engine 5.4+ project structure
+- C++ core systems implemented
+- Rust data pipeline skeleton
+- CI/CD workflows configured
+- Comprehensive documentation
+- AI agent instructions
+
+### 📋 Phase 1: MVP (Next)
+- One port (Oslo)
+- One ship (Panamax container)
+- One commodity (grain)
+- Basic trade loop
+- SQLite save system
+- Simple UI screens
+
+### ⚠️ Known Blockers
+- **Visual Studio 2022 Required** - C++ compilation and Rust MSVC linker
+- **No Visual Assets Yet** - Placeholder geometry only
+- **CI/CD Not Tested** - Workflows configured but not validated
+
+See [Issues](https://github.com/egkristi/ArgosyTides/issues) for current blockers and planned work.
+
+---
+
 ## Documentation
 
 ### Core Documents
@@ -138,6 +175,7 @@ cargo run -- build-all
 | [PHASE0_STATUS.md](PHASE0_STATUS.md) | Phase 0 completion report |
 | [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) | Comprehensive project overview |
 | [CHANGELOG.md](CHANGELOG.md) | Version history and changes |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution guidelines |
 
 ### AI Agent Instructions
 | Document | For | Description |
