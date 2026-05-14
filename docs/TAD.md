@@ -14,7 +14,9 @@
 | **Language (Game)** | C++ | C++20 | Core systems, performance-critical code |
 | **Language (UI/Gameplay)** | Blueprint | UE5 | Rapid prototyping, UI, gameplay scripting |
 | **Language (Tools)** | Rust | 1.78+ | Data pipeline, CLI tools, performance-critical utilities |
-| **Database** | SQLite (local) / PostgreSQL (MP server) | 3.45+ / 16+ | Game state, market data, player progress |
+| **SQLite Plugin** | UESQLite (third-party) or custom sqlite3 wrapper | — | UE5 integration, save system |
+| **Database** | SQLite (all modes) | 3.45+ | Game state, market data, player progress |
+| **SQLite Plugin** | UESQLite (third-party) or custom C++ wrapper | — | UE5 integration |
 | **Networking** | UE5 Netcode + Dedicated Server | — | Multiplayer, authoritative server |
 | **Data Fetching** | Rust + reqwest + tokio | — | Real-world commodity, weather, port data |
 | **Build System** | Unreal Build Tool (UBT) + CMake | — | Compilation, packaging |
@@ -610,11 +612,59 @@ Client (Player 1) <--> Dedicated Server <--> Client (Player 2..N)
 - All players submit actions → server resolves → broadcasts results
 - Prevents desync, allows async play
 
-### 4.4 AI Opponents
+### 4.4 Netcode Strategy — DECISION: Turn-Based/Lockstep Primary
+
+**THE PROBLEM:** The document mixes "authoritative server with prediction" (real-time) and "turn-based: all players submit actions → server resolves" (lockstep). These are two completely different netcode implementations. Supporting both is double the work.
+
+**THE DECISION (Claude AI recommendation — adopted):**
+
+| Aspect | Primary (MVP) | Secondary (Post-Launch) |
+|--------|--------------|------------------------|
+| **Model** | Turn-based / Lockstep | Real-time with prediction |
+| **Why** | Trading games are naturally turn-based. No need for 60 FPS sync. | For "action" modes: naval combat, storm minigames |
+| **Implementation** | All players submit actions → server resolves → broadcasts results | Authoritative server with client prediction |
+| **Latency tolerance** | High — seconds between turns acceptable | Low — requires < 100ms |
+| **Sync complexity** | Low — deterministic resolution | High — prediction, reconciliation |
+| **Use case** | Trading, route planning, port management | Combat, storms, quick decisions |
+
+**Turn-based implementation:**
+```cpp
+UCLASS()
+class UTurnManager : public UObject {
+public:
+    UFUNCTION()
+    void StartTurn();
+    
+    UFUNCTION()
+    void SubmitActions(FPlayerActions Actions);
+    
+    UFUNCTION()
+    void ResolveTurn();  // Server resolves all actions simultaneously
+    
+    UFUNCTION()
+    void BroadcastResults(TArray<FActionResult> Results);
+    
+    UPROPERTY()
+    float TurnDuration;  // 30 seconds for fast, 5 minutes for async
+    
+    UPROPERTY()
+    bool bAsyncMode;  // True = players submit anytime, resolves when all ready
+};
+```
+
+**Authoritative server for MP:**
+- Server owns: market state, ship positions, trade transactions, turn resolution
+- Clients: submit actions, receive results, predict visual feedback
+- Save game: server-side SQLite database, clients download on join
+
+**Single-player:** Same SQLite database, no networking. Identical save format.
+
+### 4.5 AI Opponents
 
 - Run on server (multiplayer) or client (single-player)
 - Decoupled from player logic via interface
 - Configurable difficulty via behavior trees
+- AI submits actions during turn resolution (same system as players)
 
 ---
 
@@ -623,7 +673,7 @@ Client (Player 1) <--> Dedicated Server <--> Client (Player 2..N)
 ### 5.1 Architecture
 
 ```
-External APIs (NOAA, Baltic Exchange, etc.)
+External APIs (NOAA, World Bank, Open-Meteo, etc.)
     |
     v
 Rust Fetcher Tools (Tools/DataPipeline/)
@@ -632,7 +682,7 @@ Rust Fetcher Tools (Tools/DataPipeline/)
 Data Validation & Normalization
     |
     v
-SQLite Cache (local) / PostgreSQL (server)
+SQLite Cache (local + multiplayer)
     |
     v
 UE5 Data Tables (Content/DataTables/)
@@ -640,6 +690,8 @@ UE5 Data Tables (Content/DataTables/)
     v
 In-Game Market & Weather Systems
 ```
+
+**SQLite for ALL modes:** Single-player saves, multiplayer server state, and offline cache all use SQLite. No PostgreSQL dependency in MVP.
 
 ### 5.2 Fetcher Tools
 
@@ -709,7 +761,11 @@ pub fn update_game_data() -> Result<(), FetchError> {
 
 ## 7. Save System
 
-### 7.1 Save Data Structure
+### 7.1 Save Data Architecture
+
+**THE PROBLEM:** 3,700 ports × 30 commodities × price history = 100+ MB save files. Steam Cloud limit is 1 GB total across all saves. A player with 20 save slots would hit the cap.
+
+**THE SOLUTION:** Don't save market data in UE5's USaveGame. Use SQLite for all save data.
 
 ```cpp
 UCLASS()
@@ -721,30 +777,99 @@ class UTradeWindsSaveGame : public USaveGame {
     FDateTime SaveTimestamp;
     
     UPROPERTY()
-    EGameEra CurrentEra;
+    FString SaveDatabasePath;  // Points to SQLite file, not embedded data
     
     UPROPERTY()
-    FPlayerState PlayerState;
-    
-    UPROPERTY()
-    TArray<FShipState> Fleet;
-    
-    UPROPERTY()
-    TMap<FString, FPortState> PortStates;
-    
-    UPROPERTY()
-    TMap<FString, FCommodityPriceSnapshot> MarketSnapshot;
-    
-    UPROPERTY()
-    TArray<FContract> ActiveContracts;
-    
-    UPROPERTY()
-    TArray<FGameEvent> EventHistory;
-    
-    UPROPERTY()
-    int32 TurnNumber;  // For turn-based modes
+    FSaveMetadata Metadata;      // Small metadata for save slot UI (name, date, preview)
 };
 ```
+
+**SQLite save schema:**
+
+```sql
+-- Core player state (small, fast)
+CREATE TABLE player_state (
+    save_id TEXT PRIMARY KEY,
+    era INTEGER,
+    company_name TEXT,
+    company_reputation REAL,
+    company_wealth REAL,
+    turn_number INTEGER,
+    game_time_days REAL
+);
+
+-- Fleet (one row per ship)
+CREATE TABLE ships (
+    ship_id TEXT PRIMARY KEY,
+    save_id TEXT,
+    ship_class TEXT,
+    captain_id TEXT,
+    port_id TEXT,
+    cargo_json TEXT,  -- Serialized cargo hold
+    condition_json TEXT,  -- Hull, engine, sail state
+    FOREIGN KEY (save_id) REFERENCES player_state(save_id)
+);
+
+-- Captains (persistent characters)
+CREATE TABLE captains (
+    captain_id TEXT PRIMARY KEY,
+    save_id TEXT,
+    name TEXT,
+    personality_json TEXT,
+    skills_json TEXT,
+    health REAL,
+    loyalty REAL,
+    is_alive INTEGER,
+    history_json TEXT
+);
+
+-- Market deltas only (not full snapshot)
+-- We store only CHANGES from base calibration, not absolute prices
+CREATE TABLE market_deltas (
+    save_id TEXT,
+    port_id TEXT,
+    commodity_id TEXT,
+    delta_from_base REAL,  -- +15% means local price is base*1.15
+    inventory_level REAL,    -- Current stock
+    last_updated INTEGER,
+    PRIMARY KEY (save_id, port_id, commodity_id)
+);
+
+-- Contracts
+CREATE TABLE contracts (
+    contract_id TEXT PRIMARY KEY,
+    save_id TEXT,
+    type TEXT,
+    commodity_id TEXT,
+    origin_port TEXT,
+    destination_port TEXT,
+    quantity REAL,
+    deadline INTEGER,
+    status TEXT,
+    reward REAL
+);
+
+-- Event history (compressed, summary only)
+CREATE TABLE event_history (
+    event_id INTEGER PRIMARY KEY,
+    save_id TEXT,
+    event_type TEXT,
+    timestamp INTEGER,
+    summary TEXT,  -- Human-readable summary, not full state
+    data_json TEXT  -- Optional detailed data
+);
+```
+
+**Compression strategy:**
+- SQLite database files are already compressed (pages are compact)
+- Additional: `zlib` compression on save files for Steam Cloud
+- Typical save: 2–5 MB (vs. 100+ MB with TMap approach)
+- Steam Cloud: 20 saves × 5 MB = 100 MB (well under 1 GB limit)
+
+**Delta storage:**
+- Don't store absolute prices. Store deviation from calibration base.
+- Base prices are recalculated from real-world data on load (or from shipped snapshot if offline)
+- This means saves are small AND they gracefully handle real-world data updates
 
 ### 7.2 Cloud Saves
 
@@ -847,10 +972,59 @@ jobs:
 | **Visual styles** | Material/shader packs | UE5 editor |
 | **Total conversion** | Full project fork | UE5 + source |
 
-### 12.2 Mod API
+### 12.2 Modding Architecture — Data-Driven Primary, Blueprint Secondary
+
+**THE PROBLEM:** Blueprint API is notoriously hard to version. When you update the game, you break all mods.
+
+**THE SOLUTION (Claude AI recommendation — adopted):**
+
+| Mod Type | Method | Format | Version Safety |
+|----------|--------|--------|---------------|
+| **Content mods** (ships, ports, commodities, scenarios) | Data-driven | JSON/CSV + Lua scripts | ✅ High — schema-stable |
+| **Behavior mods** (AI, events, game rules) | Blueprint API | UE5 Blueprint/C++ | ⚠️ Medium — may break on updates |
+| **Total conversions** | Full project fork | UE5 + source | ❌ Low — manual migration |
+
+#### Content Mods (Primary)
+
+```json
+// Mods/MyShipPack/ships.json
+{
+  "ships": [
+    {
+      "id": "custom_clipper",
+      "name": "Swiftwind Clipper",
+      "era": "age_of_sail",
+      "cargo_tons": 800,
+      "speed_knots": 14,
+      "crew_min": 40,
+      "crew_optimal": 80,
+      "hull_integrity": 100,
+      "cost_gbp": 15000,
+      "mesh": "custom_clipper.fbx",
+      "textures": ["hull_diffuse.png", "sails_diffuse.png"]
+    }
+  ]
+}
+```
+
+```lua
+-- Mods/MyScenario/events.lua
+-- Lua scripting for complex behaviors
+function onStormEncounter(ship, storm)
+    if ship.captain.personality == "daredevil" then
+        -- Daredevil captains get a bonus but risk more
+        return { speedBonus = 1.2, damageRisk = 1.5 }
+    end
+    return { speedBonus = 1.0, damageRisk = 1.0 }
+end
+```
+
+**Lua runtime:** Wren or LuaJIT embedded in UE5. Sandboxed, safe, version-stable.
+
+#### Blueprint API (Secondary, for advanced modders)
 
 ```cpp
-// UTradeWindsModAPI - exposed to Blueprint
+// Exposed to Blueprint — for behavior mods that need game logic access
 UCLASS()
 class UTradeWindsModAPI : public UObject {
     UFUNCTION(BlueprintCallable, Category="Modding")
@@ -859,13 +1033,17 @@ class UTradeWindsModAPI : public UObject {
     UFUNCTION(BlueprintCallable, Category="Modding")
     static void RegisterPort(FPortConfig Config);
     
-    UFUNCTION(BlueprintCallable, Category="Modding")
-    static void RegisterCommodity(FCommodityConfig Config);
-    
-    UFUNCTION(BlueprintCallable, Category="Modding")
-    static void AddEvent(FGameEventConfig Config);
+    // NOTE: Blueprint API may break between major game versions.
+    // Modders must update their mods. Data-driven mods are preferred.
 };
 ```
+
+#### Versioning Strategy
+
+- Data schema: Semantic versioning (v1.0, v1.1). Backward compatible within major versions.
+- Game checks mod schema version on load. Warns if outdated.
+- Steam Workshop: auto-update mods when mod author updates.
+- GitHub Releases: mod SDK with schema documentation.
 
 ---
 
