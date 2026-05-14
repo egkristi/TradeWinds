@@ -12,6 +12,7 @@
 - Modern container ships, bulk carriers, tankers, LNG carriers
 - Historical sailing ships (sloops, clippers, East Indiamen)
 - Steam-era vessels (paddle-wheelers, refrigerated ships)
+- **Global Historical Expeditions:** Viking longships (knarr, skeid, drekar), Chinese treasure junks (Fuchuan, Baochuan), Arab dhows (boom, baghlah), Polynesian double canoes (waka), Mediterranean galleys
 - Customize, upgrade, repair, and insure your fleet
 
 ### 🌍 Real-World Data
@@ -25,7 +26,7 @@
 - **Modern (2024+)** — Containerization, global supply chains, mega-ships
 - **Age of Sail (1650–1850)** — Spice trade, pirates, exploration
 - **Steam Era (1850–1950)** — Industrial revolution, canals, telegraphs
-- **Global Historical Expeditions** — Viking longships, Chinese treasure fleets, Arab dhows, Polynesian canoes
+- **Global Historical Expeditions (B.C.–1600)** — Viking raids, Chinese treasure fleets (Zheng He), Arab monsoon traders, Polynesian celestial navigators, Mediterranean triremes
 - **Custom scenarios** — Community-created challenges
 
 ### 🎨 Visual Styles
@@ -56,15 +57,16 @@
 ### Prerequisites
 - Unreal Engine 5.4+
 - Visual Studio 2022 or JetBrains Rider
-- Python 3.11+ (for data pipeline)
+- Rust 1.78+ (for data pipeline tools)
+- Python 3.11+ (for prototyping and one-off scripts)
 - Git LFS
 
 ### Build
 
 ```bash
 # Clone the repo
-git clone https://github.com/egkristi/Argosy Tides.git
-cd Argosy Tides
+git clone https://github.com/egkristi/ArgosyTides.git
+cd ArgosyTides
 
 # Initialize Git LFS
 git lfs install
@@ -72,15 +74,15 @@ git lfs pull
 
 # Build the project
 # Windows:
-Argosy Tides.uproject  # Opens in Unreal Editor
+ArgosyTides.uproject  # Opens in Unreal Editor
 
 # Or command line:
-# UE5\Engine\Build\BatchFiles\Build.bat Argosy TidesEditor Win64 Development
+# UE5\Engine\Build\BatchFiles\Build.bat ArgosyTidesEditor Win64 Development
 ```
 
 ### Run
 
-Open `Argosy Tides.uproject` in Unreal Editor and click Play.
+Open `ArgosyTides.uproject` in Unreal Editor and click Play.
 
 ---
 
