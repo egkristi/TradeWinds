@@ -1,0 +1,364 @@
+# Argosy Tides - Cursor Rules
+
+## Project Overview
+Maritime trading simulation game | Unreal Engine 5.4+ | C++20, Blueprint, Rust, Python
+
+## Current State
+**Phase 0:** ✅ Foundation Complete  
+**Next:** Phase 1 (MVP) - One port, one ship, one commodity loop
+
+## Tech Stack
+- **C++20** - Core game systems (Unreal Engine native)
+- **Blueprint** - UI, gameplay scripting, rapid prototyping
+- **Rust 1.78+** - Data pipeline (World Bank, Open-Meteo APIs)
+- **Python 3.11+** - Quick prototypes and scripts
+- **SQLite 3.45+** - Game state, market data storage
+
+## Key Directories
+```
+Source/ArgosyTides/       C++ game code
+  Core/                   GameInstance, types, enums
+  Data/                   DataManager, WeatherSystem
+  Ship/                   Ship, FleetManager
+  Economy/                (TODO) Market, commodities
+
+Content/                  UE5 assets
+  Blueprints/             Blueprint classes
+  Maps/                   Game levels
+  DataTables/             Data assets
+
+Tools/
+  DataPipeline/           Rust data fetcher
+  fetch_data_prototype.py Python prototype
+
+Config/                   UE5 configuration (.ini files)
+docs/                     Design documents (GDD, TAD, ROADMAP)
+```
+
+## Coding Standards
+
+### C++ (Unreal Engine)
+
+**Naming Conventions:**
+- Classes: `UArgosyTidesGameInstance`, `AShipActor`, `FCommodityPrice`
+- Variables: `ShipName` (FString), `MaxCapacity` (int32), `bIsPlayerOwned` (bool)
+- Functions: `StartNewGame()`, `GetCommodityPrice()`
+- Use Hungarian notation: `F` (FString), `A` (Actor), `U` (UObject), `b` (bool)
+
+**Required Macros:**
+```cpp
+UCLASS()                          // For UE5 classes
+GENERATED_BODY()                  // In every UCLASS/USTRUCT
+UPROPERTY()                       // For serialization, GC, Blueprint
+UFUNCTION(BlueprintCallable)      // Expose to Blueprint
+```
+
+**Types to Use:**
+- `FString` (not std::string)
+- `TArray<T>` (not std::vector)
+- `TMap<K,V>` (not std::map)
+- `int32`, `float`, `FDateTime` (UE5 types)
+- `TSharedPtr`, `TWeakPtr` (for non-UObject)
+
+**Logging:**
+```cpp
+UE_LOG(LogTemp, Log, TEXT("Message"));
+UE_LOG(LogTemp, Warning, TEXT("Warning: %s"), *ErrorMessage);
+UE_LOG(LogTemp, Error, TEXT("Error occurred"));
+```
+
+**Example Class:**
+```cpp
+// Ship.h
+#pragma once
+#include "CoreMinimal.h"
+#include "UObject/Object.h"
+#include "Ship.generated.h"
+
+UCLASS()
+class ARGOSYTIDES_API UShip : public UObject
+{
+    GENERATED_BODY()
+
+public:
+    UPROPERTY(BlueprintReadWrite, Category = "Identity")
+    FString ShipName;
+
+    UPROPERTY(BlueprintReadWrite, Category = "Stats")
+    int32 MaxCargoCapacity;
+
+    UFUNCTION(BlueprintCallable, Category = "Cargo")
+    bool LoadCargo(const FString& CommodityId, int32 Amount);
+};
+```
+
+### Rust
+
+**Standards:**
+- Use `anyhow::Result` for application errors
+- Use `thiserror` for library errors
+- Use `tracing` crate for logging
+- Use `?` operator for error propagation
+- Rate limit API calls (500ms between requests)
+
+**Example:**
+```rust
+use anyhow::Result;
+use tracing::{info, warn, error};
+
+pub async fn fetch_commodities(output_dir: &str) -> Result<()> {
+    info!("Fetching commodity prices...");
+    
+    let client = Client::new();
+    let response = client.get(&url).send().await?;
+    
+    if response.status().is_success() {
+        info!("Fetch successful");
+    } else {
+        warn!("HTTP {}", response.status());
+    }
+    
+    Ok(())
+}
+```
+
+### Blueprint
+
+**Standards:**
+- Prefix with `BP_` (e.g., `BP_Ship`, `UI_PortScreen`)
+- Inherit from C++ base classes when possible
+- Add comments to complex logic graphs
+- Test in PIE (Play In Editor) frequently
+
+## Architecture Principles
+
+### 1. Data Strategy (ADR-002)
+```
+Real-World APIs (World Bank, Open-Meteo)
+    ↓
+Calibration Layer (5% drift per game-week)
+    ↓
+Local Simulation (Supply/Demand)
+    ↓
+Gameplay Prices (What player sees)
+```
+
+**Key Point:** Real data calibrates the simulation, doesn't drive it directly.
+
+### 2. Language Ownership (ADR-001)
+- **C++:** Performance-critical, UE5 integration
+- **Blueprint:** UI, designer-friendly, rapid iteration
+- **Rust:** Data pipeline, CLI tools, compiled binary
+- **Python:** Prototyping, one-off scripts
+
+### 3. Layered Architecture
+```
+Game Layer (Blueprint/C++)
+    ↓
+Data Abstraction (UDataManager)
+    ↓
+Calibration (5% drift)
+    ↓
+Local Simulation
+    ↓
+Real-World APIs
+```
+
+## Common Patterns
+
+### Data Manager Pattern
+```cpp
+UCLASS()
+class UDataManager : public UObject {
+    UFUNCTION(BlueprintCallable)
+    FCommodityPrice GetCommodityPrice(FString Id);
+    
+    UPROPERTY()
+    TMap<FString, FCommodityPrice> CommodityCache;
+    
+    void FetchCommodityPrices();  // Internal API call
+};
+```
+
+### Calibration Pattern
+```cpp
+// Gradual drift toward real data (5% per game-week)
+void CalibratePrice(double& GamePrice, double RealPrice) {
+    float DriftRate = 0.05f;
+    GamePrice = FMath::Lerp(GamePrice, RealPrice, DriftRate);
+}
+```
+
+### Event System
+```cpp
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(
+    FOnPriceChanged, FString, CommodityId, float, NewPrice
+);
+
+class UMarket {
+    UPROPERTY(BlueprintAssignable)
+    FOnPriceChanged OnPriceChanged;
+};
+```
+
+## Build & Development
+
+### Setup
+```powershell
+# Verify environment
+.\setup.bat
+
+# Open in Unreal Editor
+ArgosyTides.uproject
+```
+
+### Building
+```powershell
+# Build UE5 project
+.\build.bat
+
+# Or manually
+& "C:\Program Files\Epic Games\UE_5.4\Engine\Build\BatchFiles\Build.bat" `
+  ArgosyTidesEditor Win64 Development `
+  -project="ArgosyTides.uproject" -log -wait
+
+# Build Rust pipeline
+cd Tools\DataPipeline
+cargo build --release
+
+# Test Python prototype
+python Tools\fetch_data_prototype.py --all
+```
+
+### Git Workflow
+```powershell
+# Stage changes
+git add -A
+
+# Commit with conventional commits
+git commit -m "feat: add new ship class"
+git commit -m "fix: resolve compilation error in DataManager"
+git commit -m "docs: update README with build instructions"
+
+# Push to remote
+git push
+```
+
+## Phase 1 (MVP) Scope
+
+### In Scope ✅
+- One port: Oslo
+- One ship: Panamax container
+- One commodity: Grain
+- Basic trade loop: Buy → Sail → Sell → Profit
+- Simple UI screens
+- SQLite save/load
+
+### Out of Scope ❌ (Future Phases)
+- Multiple ports (Phase 2)
+- Weather system (Phase 2)
+- Captains with personalities (Phase 4)
+- Historical eras (Phase 4)
+- Multiplayer (Phase 5)
+- AI opponents (Phase 6)
+
+## Documentation
+
+| File | Purpose |
+|------|---------|
+| `README.md` | Project overview |
+| `SETUP.md` | Installation guide |
+| `docs/GDD.md` | Game Design Document |
+| `docs/TAD.md` | Technical Architecture |
+| `docs/ROADMAP.md` | Implementation plan |
+| `PHASE0_STATUS.md` | Current progress |
+| `.github/AI_INSTRUCTIONS.md` | Detailed AI guide |
+
+## Common Issues & Solutions
+
+### C++ Not Visible in Blueprint
+**Problem:** C++ class doesn't appear in Blueprint picker  
+**Solution:**
+1. Check `UCLASS()` macro present
+2. Verify `GENERATED_BODY()` in class
+3. Compile project in Unreal Editor
+4. Check module name in Build.cs
+
+### Compilation Errors
+**Problem:** Linker errors or module not found  
+**Solution:**
+```powershell
+# Clean and rebuild
+Remove-Item -Recurse -Force Binaries, Intermediate, Saved
+.\build.bat
+```
+
+### Rust MSVC Errors
+**Problem:** "linker `link.exe` not found"  
+**Solution:** Install Visual Studio with C++ workload
+
+### Git LFS Issues
+**Problem:** Binary files not downloading  
+**Solution:**
+```bash
+git lfs install
+git lfs pull
+```
+
+## Testing Guidelines
+
+### C++ Code
+1. Compile with `.\build.bat`
+2. Test in Unreal Editor (Play In Editor)
+3. Check Output Log for errors
+4. Use `UE_LOG` for debugging
+
+### Rust Code
+1. Build with `cargo build --release`
+2. Test with `cargo test`
+3. Run CLI commands to verify
+4. Check output in `output/` directory
+
+### Blueprint
+1. Compile Blueprint (F7)
+2. Test in PIE mode
+3. Use Print String nodes for debugging
+4. Check Unreal Editor logs
+
+## When Asking for Help
+
+1. **Check existing code** in `Source/ArgosyTides/`
+2. **Review documentation** (GDD, TAD, AI_INSTRUCTIONS)
+3. **Search for patterns** (grep or semantic search)
+4. **Compile and test** before committing
+
+## AI Agent Tips
+
+### For Code Generation
+- Follow existing patterns in codebase
+- Use proper UE5 macros (UPROPERTY, UFUNCTION)
+- Add logging for debugging
+- Consider Blueprint accessibility
+
+### For Refactoring
+- Maintain backward compatibility
+- Update all references
+- Test compilation after changes
+- Document breaking changes
+
+### For New Features
+- Check Phase roadmap first
+- Start with minimal viable implementation
+- Add to appropriate directory
+- Update documentation
+
+## References
+
+- **UE5 Documentation:** https://docs.unrealengine.com/5.4/
+- **Rust Book:** https://doc.rust-lang.org/book/
+- **GitHub Repo:** https://github.com/egkristi/ArgosyTides
+
+---
+
+*Last Updated: 2026-05-14*  
+*Maintained by: Development Team*

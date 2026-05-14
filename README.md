@@ -122,6 +122,7 @@ cargo run -- build-all
 
 ## Documentation
 
+### Core Documents
 | Document | Description |
 |----------|-------------|
 | [GDD](docs/GDD.md) | Comprehensive Game Design Document |
@@ -129,6 +130,36 @@ cargo run -- build-all
 | [ROADMAP](docs/ROADMAP.md) | Implementation roadmap with phased milestones |
 | [API_INTEGRATION](docs/API_INTEGRATION.md) | Real-world data sources and integration guide |
 | [MODDING_GUIDE](docs/MODDING_GUIDE.md) | Creating mods and scenarios |
+
+### Development Guides
+| Document | Description |
+|----------|-------------|
+| [SETUP.md](SETUP.md) | Installation and environment setup |
+| [PHASE0_STATUS.md](PHASE0_STATUS.md) | Phase 0 completion report |
+| [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) | Comprehensive project overview |
+| [CHANGELOG.md](CHANGELOG.md) | Version history and changes |
+
+### AI Agent Instructions
+| Document | For | Description |
+|----------|-----|-------------|
+| [`.cursorrules`](.cursorrules) | Cursor IDE | Comprehensive coding standards and patterns |
+| [`.github/copilot-instructions.md`](.github/copilot-instructions.md) | GitHub Copilot | Quick reference for Copilot |
+| [`.github/AI_INSTRUCTIONS.md`](.github/AI_INSTRUCTIONS.md) | All AI Agents | Detailed architecture and workflows |
+| [`CLAUDE.md`](CLAUDE.md) | Claude Code | Claude-specific instructions |
+| [`.sourcegraph/cody.json`](.sourcegraph/cody.json) | Cody | Sourcegraph Cody configuration |
+
+---
+
+## AI Agent Setup
+
+This project includes comprehensive AI agent instructions for multiple coding assistants:
+
+- **Cursor IDE:** Automatically loads `.cursorrules`
+- **GitHub Copilot:** Reads `.github/copilot-instructions.md`
+- **Claude Code:** Reads `CLAUDE.md`
+- **Cody:** Reads `.sourcegraph/cody.json`
+
+These files provide context about the project architecture, coding standards, and current development phase.
 
 ---
 
