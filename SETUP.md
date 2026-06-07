@@ -88,6 +88,14 @@ cd c:\Users\willm\code\ArgosyTides
   -log -wait
 ```
 
+### Python Prototype Dependencies
+
+The quick data fetcher prototype in `Tools/fetch_data_prototype.py` uses the
+Python `requests` package. Install the prototype dependencies before running it:
+
+```powershell
+python -m pip install -r Tools/requirements.txt
+```
 ### Step 5: Verify Setup
 
 ```powershell
